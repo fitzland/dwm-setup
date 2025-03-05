@@ -246,26 +246,26 @@ install_theming() {
     GTK_THEME_NAME="Orchis-Teal-Dark"
     ICON_THEME_NAME="Colloid-Teal-Everforest-Dark"
 
-    echo "Checking for installed themes..."
-
-    if [ -d "$HOME/.themes/$GTK_THEME_NAME" ]; then
-        echo "GTK Theme '$GTK_THEME_NAME' already installed. Skipping."
-    else
-        echo "Installing GTK theme..."
-        git clone "$GTK_THEME" "$INSTALL_DIR/Orchis-theme" || die "Failed to clone Orchis theme."
-        cd "$INSTALL_DIR/Orchis-theme" || die "Failed to enter Orchis theme directory."
-        yes | ./install.sh -c dark -t teal orange --tweaks black
+    if [ -d "$HOME/.themes/$GTK_THEME_NAME" ] || [ -d "$HOME/.icons/$ICON_THEME_NAME" ]; then
+        echo "One or more themes/icons already installed. Skipping theming installation."
+        return
     fi
 
-    if [ -d "$HOME/.icons/$ICON_THEME_NAME" ]; then
-        echo "Icon Theme '$ICON_THEME_NAME' already installed. Skipping."
-    else
-        echo "Installing Icon theme..."
-        git clone "$ICON_THEME" "$INSTALL_DIR/Colloid-icon-theme" || die "Failed to clone Colloid icon theme."
-        cd "$INSTALL_DIR/Colloid-icon-theme" || die "Failed to enter Colloid icon theme directory."
-        ./install.sh -t teal orange -s default gruvbox everforest
-    fi
+    echo "Installing GTK and Icon themes..."
+
+    # GTK Theme Installation
+    git clone "$GTK_THEME" "$INSTALL_DIR/Orchis-theme" || die "Failed to clone Orchis theme."
+    cd "$INSTALL_DIR/Orchis-theme" || die "Failed to enter Orchis theme directory."
+    yes | ./install.sh -c dark -t teal orange --tweaks black
+
+    # Icon Theme Installation
+    git clone "$ICON_THEME" "$INSTALL_DIR/Colloid-icon-theme" || die "Failed to clone Colloid icon theme."
+    cd "$INSTALL_DIR/Colloid-icon-theme" || die "Failed to enter Colloid icon theme directory."
+    ./install.sh -t teal orange -s default gruvbox everforest
+
+    echo "Theming installation complete."
 }
+
 
 # ========================================
 # GTK Theme Settings
