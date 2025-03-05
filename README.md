@@ -15,35 +15,37 @@ This is my customized build of [dwm](https://dwm.suckless.org/), designed for my
 
 ## 📥 Installation Summary
 
-| Programs                           | Category          |
-|------------------------------------|------------------|-
-| ghostty                            | Terminal (main)  |
-| tilix                              | Terminal (quake mode)  |
-| dmenu                            | Application Launcher  |
-| rofi                            | Application Launcher  |
+| Programs | Category |
+|---|---|
+| ghostty | Terminal (main) |
+| tilix | Terminal (quake mode) |
+| dmenu | Application Launcher |
+| rofi | Application Launcher |
+
 
 
 ## 📝 Patches Summary
 
-| Patch                              | Category          |
-|------------------------------------|------------------|-
-| alwayscenter                       | Floating windows  |
-| attachbottom                       | Window order      |
-| cool-autostart                     | Autostart         |
-| fixborders                         | Visual fix        |
-| floatrules                         | Floating rules    |
-| focusadjacenttag                   | Navigation        |
-| focusedontop                       | Floating windows  |
-| focusonnetactive                   | Compatibility     |
-| movestack                          | Window management |
-| pertag                             | Layout memory     |
-| preserveonrestart                  | Session persistence
-| restartsig                         | Restart ability   |
-| scratchpads                        | Workflow          |
-| status2d-systray                   | Bar features      |
-| togglefloatingcenter               | Floating windows  |
-| vanitygaps                         | Visual spacing    |
-| windowfollow                       | Navigation        |
+| Patch | Category |
+|---|---|
+| alwayscenter | Floating windows |
+| attachbottom | Window order |
+| cool-autostart | Autostart |
+| fixborders | Visual fix |
+| floatrules | Floating rules |
+| focusadjacenttag | Navigation |
+| focusedontop | Floating windows |
+| focusonnetactive | Compatibility |
+| movestack | Window management |
+| pertag | Layout memory |
+| preserveonrestart | Session persistence |
+| restartsig | Restart ability |
+| scratchpads | Workflow |
+| status2d-systray | Bar features |
+| togglefloatingcenter | Floating windows |
+| vanitygaps | Visual spacing |
+| windowfollow | Navigation |
+
 
 ---
 
