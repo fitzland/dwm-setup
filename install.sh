@@ -14,6 +14,11 @@ INSTALL_DIR="$HOME/installation"
 GTK_THEME="https://github.com/vinceliuice/Orchis-theme.git"
 ICON_THEME="https://github.com/vinceliuice/Colloid-icon-theme.git"
 
+command_exists() {
+    command -v "$1" &>/dev/null
+}
+
+
 # ============================================
 # Error Handling
 # ============================================
