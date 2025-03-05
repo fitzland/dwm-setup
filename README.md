@@ -64,6 +64,8 @@ You can view both in a combined `rofi` menu using:
 ```bash
 ~/.config/suckless/scripts/help
 
+---
+
 ## 📝 Patches Summary
 
 | Patch | Category |
