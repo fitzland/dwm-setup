@@ -146,6 +146,11 @@ setup_dwm_config() {
 # Install ft-picom
 # ============================================
 install_ftlabs_picom() {
+	if command_exists picom; then
+        echo "Picom is already installed. Skipping installation."
+        return
+    fi
+	
     git clone https://github.com/FT-Labs/picom "$INSTALL_DIR/picom" || die "Failed to clone Picom."
     cd "$INSTALL_DIR/picom"
     meson setup --buildtype=release build
@@ -157,6 +162,11 @@ install_ftlabs_picom() {
 # Install Fastfetch
 # ============================================
 install_fastfetch() {
+	if command_exists fastfetch; then
+        echo "Fastfetch is already installed. Skipping installation."
+        return
+    fi	
+	
     git clone https://github.com/fastfetch-cli/fastfetch "$INSTALL_DIR/fastfetch" || die "Failed to clone Fastfetch."
     cd "$INSTALL_DIR/fastfetch"
     cmake -S . -B build
@@ -168,6 +178,11 @@ install_fastfetch() {
 # Install Ghostty
 # ============================================
 install_myghostty() {
+	if command_exists ghostty; then
+        echo "Ghostty is already installed. Skipping installation."
+        return
+    fi
+	
     git clone https://github.com/drewgrif/myghostty "$INSTALL_DIR/myghostty" || die "Failed to clone Ghostty."
     bash "$INSTALL_DIR/myghostty/install_ghostty.sh"
     mkdir -p "$HOME/.config/ghostty"
