@@ -66,9 +66,11 @@ install_packages() {
     echo "Package installation completed."
   } 
  
- install_reqs() {
+install_reqs() {
     echo "Updating package lists and installing required dependencies..."
     sudo nala install -y build-essential cmake meson ninja-build git wget curl libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev uthash-dev libgtk-4-dev libadwaita-1-dev pkg-config || { echo "Package installation failed."; exit 1; }
+}
+
 
 # ============================================
 # Enable System Services
