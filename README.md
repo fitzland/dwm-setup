@@ -10,6 +10,9 @@ This is my customized build of [dwm](https://dwm.suckless.org/), designed for my
 - Keybindings for window navigation, layouts, and scratchpads
 - Integration with `sxhkd` for extended keybinding management
 - Custom `rofi` keybinding viewer (optional)
+- `slstatus` for system information in the bar
+- `ft-picom` for transparent windows and compositing
+- `dunst` for lightweight notifications
 
 ---
 
@@ -21,8 +24,45 @@ This is my customized build of [dwm](https://dwm.suckless.org/), designed for my
 | tilix | Terminal (quake mode) |
 | dmenu | Application Launcher |
 | rofi | Application Launcher |
+| slstatus | Status Bar |
+| ft-picom | Compositor |
+| dunst | Notification Daemon |
+| sxhkd | Keybinding Daemon |
 
+---
 
+## Features
+
+- Dynamic window management with floating and tiling modes
+- Keybindings for window navigation, layouts, and scratchpads
+- Integration with `sxhkd` for extended keybinding management
+- Custom `rofi` keybinding viewer (optional)
+
+---
+
+## 📂 Configuration Files
+
+| File | Description |
+|---|---|
+| `~/.config/suckless/dwm/keybindings.txt` | Human-readable DWM keybindings |
+| `~/.config/suckless/sxhkd/sxhkdrc` | Keybindings for `sxhkd` |
+| `~/.config/suckless/rofi/keybinds.rasi` | Theme for `rofi` keybinding viewer |
+| `~/.config/suckless/dunst/dunstrc` | Notification settings |
+| `~/.config/suckless/picom/picom.conf` | Compositor settings |
+
+---
+
+## 🔑 Keybindings Overview
+
+Keybindings are stored in:
+
+- `~/.config/suckless/dwm/keybindings.txt` for **DWM keybindings**.
+- `~/.config/suckless/sxhkd/sxhkdrc` for **sxhkd keybindings**.
+
+You can view both in a combined `rofi` menu using:
+
+```bash
+~/.config/suckless/scripts/help
 
 ## 📝 Patches Summary
 
