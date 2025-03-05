@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Parse sxhkdrc keybindings
+sxhkd_bindings=$(awk '
+    /^[a-z]/ && last { 
+        printf "SXHKD | %-30s | %-40s\n", $0, last 
+    }
+    { last="" } 
+    /^#/ { last=substr($0, 3) }' ~/.config/suckless/sxhkd/sxhkdrc)
+
+# Parse DWM config.def.h keybindings (just spawn commands as example)
+dwm_bindings=$(awk '
+/^[[:space:]]*{/ {
+    gsub(/^[[:space:]]*{[[:space:]]*/, "");
+    gsub(/[[:space:]]*}[[:space:]]*,?[[:space:]]*$/, "");
+    split($0, fields, ",");
+    mod=fields[1]; key=fields[2]; action=fields[3];
+    if (action ~ /spawn/) {
+        desc=action
+        gsub(/.*\.v = /, "", desc);
+        gsub(/[{}]/, "", desc);
+        gsub(/ /, "", desc);
+        printf "DWM   | %-30s | %-40s\n", mod "+" key, desc;
+    }
+}' ~/.config/suckless/dwm/config.def.h)
+
+# Combine both sources
+combined_bindings="$sxhkd_bindings"$'\n'"$dwm_bindings"
+
+# Format into columns
+formatted_keybindings=$(echo "$combined_bindings" | column -t -s '|')
+
+# Show in rofi and capture the selected line
+selected=$(echo "$formatted_keybindings" | rofi -dmenu -i -p "Keybindings" -line-padding 4 -hide-scrollbar -theme ~/.config/bspwm/rofi/keybinds.rasi)
+
+# Execute selected command if it's from sxhkd (DWM commands aren't directly executable here)
+if [[ "$selected" == SXHKD* ]]; then
+    command=$(echo "$selected" | awk -F'|' '{print $3}' | xargs)
+    if [ -n "$command" ]; then
+        nohup $command &>/dev/null &
+    fi
+fi
