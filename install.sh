@@ -178,15 +178,26 @@ install_fastfetch() {
 # Install Ghostty
 # ============================================
 install_myghostty() {
-	if command_exists ghostty; then
+    if command_exists ghostty; then
         echo "Ghostty is already installed. Skipping installation."
         return
     fi
-	
+
+    echo "Cloning Ghostty..."
     git clone https://github.com/drewgrif/myghostty "$INSTALL_DIR/myghostty" || die "Failed to clone Ghostty."
+
+    # Ensure we're on a valid branch (main or master)
+    git -C "$INSTALL_DIR/myghostty" checkout main || \
+    git -C "$INSTALL_DIR/myghostty" checkout master || \
+    die "Failed to switch to main or master branch in Ghostty repository."
+
+    echo "Running Ghostty install script..."
     bash "$INSTALL_DIR/myghostty/install_ghostty.sh"
+
     mkdir -p "$HOME/.config/ghostty"
     cp "$INSTALL_DIR/myghostty/config" "$HOME/.config/ghostty/" || die "Failed to copy Ghostty config."
+
+    echo "Ghostty installation complete."
 }
 
 # ============================================
@@ -256,18 +267,52 @@ install_theming() {
     fi
 }
 
+# ========================================
+# GTK Theme Settings
+# ========================================
 
-# ============================================
-# Apply GTK Theme
-# ============================================
 change_theming() {
-cat <<EOF > ~/.config/gtk-3.0/settings.ini
+# Ensure the directories exist
+mkdir -p ~/.config/gtk-3.0
+
+# Write to ~/.config/gtk-3.0/settings.ini
+cat << EOF > ~/.config/gtk-3.0/settings.ini
 [Settings]
 gtk-theme-name=Orchis-Teal-Dark
 gtk-icon-theme-name=Colloid-Teal-Everforest-Dark
 gtk-font-name=Sans 10
+gtk-cursor-theme-name=Adwaita
+gtk-cursor-theme-size=0
+gtk-toolbar-style=GTK_TOOLBAR_BOTH
+gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-button-images=1
+gtk-menu-images=1
+gtk-enable-event-sounds=1
+gtk-enable-input-feedback-sounds=1
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-xft-hintstyle=hintfull
 EOF
-}
+
+# Write to ~/.gtkrc-2.0
+cat << EOF > ~/.gtkrc-2.0
+gtk-theme-name="Orchis-Teal-Dark"
+gtk-icon-theme-name="Colloid-Teal-Everforest-Dark"
+gtk-font-name="Sans 10"
+gtk-cursor-theme-name="Adwaita"
+gtk-cursor-theme-size=0
+gtk-toolbar-style=GTK_TOOLBAR_BOTH
+gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-button-images=1
+gtk-menu-images=1
+gtk-enable-event-sounds=1
+gtk-enable-input-feedback-sounds=1
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-xft-hintstyle="hintfull"
+EOF
+
+echo "GTK settings updated."
 
 # ============================================
 # Replace .bashrc
