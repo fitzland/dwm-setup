@@ -110,7 +110,7 @@ check_dwm() {
 setup_dwm_config() {
     mkdir -p "$CONFIG_DIR"
     for dir in dwm st slstatus dunst fonts picom rofi scripts sxhkd wallpaper; do
-        cp -r "$CLONED_DIR/$dir" "$CONFIG_DIR/" || echo "Warning: Failed to copy $dir."
+        cp -r "$CLONED_DIR/suckless/$dir" "$CONFIG_DIR/" || echo "Warning: Failed to copy $dir."
     done
 
     for component in dwm slstatus st; do
