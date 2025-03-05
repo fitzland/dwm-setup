@@ -36,7 +36,7 @@ super + f
 	thunar
 
 # Launch Geany (Text Editor)
-super + g
+super + e
 	geany
 
 # Launch GIMP (Image Editor)
