@@ -96,12 +96,12 @@ Print
 	
 # Enable Redshift (Night Light)
 super + alt + r
-	~/.config/bspwm/scripts/redshift-on
+	~/.config/suckless/scripts/redshift-on
 
 # Disable Redshift (Night Light)
 super + alt + b
-	~/.config/bspwm/scripts/redshift-off
+	~/.config/suckless/scripts/redshift-off
 
 # Power Off/Reboot
 super + x 
-	~/scripts/power
+	~/.config/suckless/scripts/power
