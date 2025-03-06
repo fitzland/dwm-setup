@@ -178,24 +178,14 @@ install_fastfetch() {
 # Install Ghostty
 # ============================================
 install_myghostty() {
-    if command_exists ghostty; then
-        echo "Ghostty is already installed. Skipping installation."
+    if command -v ghostty &>/dev/null; then
+        echo "Ghostty is already installed. Skipping."
         return
     fi
 
-    echo "Cloning Ghostty..."
+    echo "Cloning and installing Ghostty..."
     git clone https://github.com/drewgrif/myghostty "$INSTALL_DIR/myghostty" || die "Failed to clone Ghostty."
-
-    # Ensure we're on a valid branch (main or master)
-    git -C "$INSTALL_DIR/myghostty" checkout main || \
-    git -C "$INSTALL_DIR/myghostty" checkout master || \
-    die "Failed to switch to main or master branch in Ghostty repository."
-
-    echo "Running Ghostty install script..."
-    bash "$INSTALL_DIR/myghostty/install_ghostty.sh"
-
-    mkdir -p "$HOME/.config/ghostty"
-    cp "$INSTALL_DIR/myghostty/config" "$HOME/.config/ghostty/" || die "Failed to copy Ghostty config."
+    bash "$INSTALL_DIR/myghostty/install_ghostty.sh" || die "Ghostty installation failed."
 
     echo "Ghostty installation complete."
 }
