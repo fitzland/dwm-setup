@@ -44,7 +44,7 @@ This is my customized build of [dwm](https://dwm.suckless.org/), designed for my
 
 | File | Description |
 |---|---|
-| `~/.config/suckless/scripts/autostart.sh` | Autostart command on login |
+| `~/.config/suckless/scripts/autostart.sh` | Autostart commands on login |
 | `~/.config/suckless/dwm/keybindings.txt` | Human-readable DWM keybindings |
 | `~/.config/suckless/sxhkd/sxhkdrc` | Keybindings for `sxhkd` |
 | `~/.config/suckless/rofi/keybinds.rasi` | Theme for `rofi` keybinding viewer |
