@@ -1,94 +1,78 @@
-# JustAGuy Linux DWM Build
+dwm - dynamic window manager
+============================
+dwm is an extremely fast, small, and dynamic window manager for X.
 
-This is my customized build of [dwm](https://dwm.suckless.org/), designed for my personal workflow. It includes essential patches, a customized `config.def.h`, and pre-defined keybindings to enhance the tiling window manager experience.
 
----
+Requirements
+------------
+In order to build dwm you need the Xlib header files.
 
-## Features
 
-- Dynamic window management with floating and tiling modes
-- Keybindings for window navigation, layouts, and scratchpads
-- Integration with `sxhkd` for extended keybinding management
-- Custom `rofi` keybinding viewer (optional)
-- `slstatus` for system information in the bar
-- `ft-picom` for transparent windows and compositing
-- `dunst` for lightweight notifications
-- `fastfetch` for screenshots and system hardware
-- `themed` using [Orchis GTK Theme](https://github.com/vinceliuice/Orchis-theme) | [Colloid Dark Icon Theme](https://github.com/vinceliuice/Colloid-icon-theme)
+Installation
+------------
+Edit config.mk to match your local setup (dwm is installed into
+the /usr/local namespace by default).
 
----
+Afterwards enter the following command to build and install dwm (if
+necessary as root):
 
-## 📥 Installation Summary
+    make clean install
 
-| Programs | Category |
-|---|---|
-| ghostty | Terminal (main) |
-| tilix | Terminal (quake mode) |
-| dmenu | Application Launcher |
-| rofi | Application Launcher |
-| slstatus | Status Bar |
-| ft-picom | Compositor |
-| dunst | Notification Daemon |
-| sxhkd | Keybinding Daemon |
 
----
+Running dwm
+-----------
+Add the following line to your .xinitrc to start dwm using startx:
 
-## Features
+    exec dwm
 
-- Dynamic window management with floating and tiling modes
-- Keybindings for window navigation, layouts, and scratchpads
-- Integration with `sxhkd` for extended keybinding management
-- Custom `rofi` keybinding viewer (optional)
+In order to connect dwm to a specific display, make sure that
+the DISPLAY environment variable is set correctly, e.g.:
 
----
+    DISPLAY=foo.bar:1 exec dwm
 
-## 📂 Configuration Files
+(This will start dwm on display :1 of the host foo.bar.)
 
-| File | Description |
-|---|---|
-| `~/.config/suckless/scripts/autostart.sh` | Autostart commands on login |
-| `~/.config/suckless/dwm/keybindings.txt` | Human-readable DWM keybindings |
-| `~/.config/suckless/sxhkd/sxhkdrc` | Keybindings for `sxhkd` |
-| `~/.config/suckless/rofi/keybinds.rasi` | Theme for `rofi` keybinding viewer |
-| `~/.config/suckless/dunst/dunstrc` | Notification settings |
-| `~/.config/suckless/picom/picom.conf` | Compositor settings |
+In order to display status info in the bar, you can do something
+like this in your .xinitrc:
+
+    while xsetroot -name "`date` `uptime | sed 's/.*,//'`"
+    do
+    	sleep 1
+    done &
+    exec dwm
+
+
+Configuration
+-------------
+The configuration of dwm is done by creating a custom config.h
+and (re)compiling the source code
+
+
+Absolutely! Here’s a breakdown of **each of these DWM patches** and **why they are commonly used or considered valuable**. This will serve as solid documentation for your setup.
 
 ---
 
-## 🔑 Keybindings Overview
+## 📝 Summary
 
-Keybindings are stored in:
-
-- `~/.config/suckless/dwm/keybindings.txt` for **DWM keybindings**.
-- `~/.config/suckless/sxhkd/sxhkdrc` for **sxhkd keybindings**.
-
-You can view both in a combined `rofi` menu using:
-
-``` ~/.config/suckless/scripts/help ```
-
----
-
-## 📝 Patches Summary
-
-| Patch | Category |
-|---|---|
-| alwayscenter | Floating windows |
-| attachbottom | Window order |
-| cool-autostart | Autostart |
-| fixborders | Visual fix |
-| focusadjacenttag | Navigation |
-| focusedontop | Floating windows |
-| focusonnetactive | Compatibility |
-| movestack | Window management |
-| pertag | Layout memory |
-| preserveonrestart | Session persistence |
-| restartsig | Restart ability |
-| scratchpads | Workflow |
-| status2d-systray | Bar features |
-| togglefloatingcenter | Floating windows |
-| vanitygaps | Visual spacing |
-| windowfollow | Navigation |
-
+| Patch                              | Category          |
+|------------------------------------|------------------|-
+| alwayscenter                       | Floating windows  |
+| attachbottom                       | Window order      |
+| cool-autostart                     | Autostart         |
+| fixborders                         | Visual fix        |
+| floatrules                         | Floating rules    |
+| focusadjacenttag                   | Navigation        |
+| focusedontop                       | Floating windows  |
+| focusonnetactive                   | Compatibility     |
+| movestack                          | Window management |
+| pertag                             | Layout memory     |
+| preserveonrestart                  | Session persistence
+| restartsig                         | Restart ability   |
+| scratchpads                        | Workflow          |
+| status2d-systray                   | Bar features      |
+| togglefloatingcenter               | Floating windows  |
+| vanitygaps                         | Visual spacing    |
+| windowfollow                       | Navigation        |
 
 ---
 
@@ -132,7 +116,16 @@ Prevents graphical glitches and ensures windows always have the correct borders,
 
 ---
 
-### 5. `dwm-focusadjacenttag-6.3.diff`
+### 5. `dwm-floatrules-20210801-138b405.diff`
+**What it does:**  
+Lets you define **rules for certain apps to always open floating** (like `pavucontrol` or `GParted`).
+
+**Why it's useful:**  
+Critical for workflow. Some apps (dialogs, settings windows) just don't work well tiled, so you want them **always floating** without manual intervention.
+
+---
+
+### 6. `dwm-focusadjacenttag-6.3.diff`
 **What it does:**  
 Adds keybindings to **quickly switch to the next or previous tag**.
 
@@ -141,7 +134,7 @@ Great for workflows where you spread work across multiple tags. Makes it easier 
 
 ---
 
-### 6. `dwm-focusedontop-6.5.diff`
+### 7. `dwm-focusedontop-6.5.diff`
 **What it does:**  
 Forces the currently focused floating window to always be on top.
 
@@ -152,7 +145,7 @@ Prevents floating windows from accidentally being covered by tiled windows when 
 
 ---
 
-### 7. `dwm-focusonnetactive-6.2.diff`
+### 8. `dwm-focusonnetactive-6.2.diff`
 **What it does:**  
 Ensures DWM correctly focuses windows that request focus via _NET_ACTIVE_WINDOW (like some app popups).
 
@@ -161,7 +154,7 @@ Improves compatibility with external programs and scripts (e.g., notification po
 
 ---
 
-### 8. `dwm-movestack-20211115-a786211.diff`
+### 9. `dwm-movestack-20211115-a786211.diff`
 **What it does:**  
 Allows you to **move windows up/down the stack**.
 
@@ -170,7 +163,7 @@ Essential for organizing windows in the master-stack layout, letting you reorder
 
 ---
 
-### 9. `dwm-pertag-20200914-61bb8b2.diff`
+### 10. `dwm-pertag-20200914-61bb8b2.diff`
 **What it does:**  
 Each tag remembers its own **layout, master count, and gaps settings**.
 
@@ -179,7 +172,7 @@ This is one of the most **essential DWM patches** if you use multiple tags. It a
 
 ---
 
-### 10. `dwm-preserveonrestart-6.3.diff`
+### 11. `dwm-preserveonrestart-6.3.diff`
 **What it does:**  
 Preserves window positions when restarting DWM.
 
@@ -188,7 +181,7 @@ Critical if you like to restart DWM to reload config changes, keeping windows in
 
 ---
 
-### 11. `dwm-restartsig-20180523-6.2.diff`
+### 12. `dwm-restartsig-20180523-6.2.diff`
 **What it does:**  
 Adds a **restart signal handler** so you can restart DWM without logging out.
 
@@ -197,7 +190,7 @@ Allows easy config reloads and minor changes without logging out, pairing well w
 
 ---
 
-### 12. `dwm-scratchpads-20200414-728d397b.diff`
+### 13. `dwm-scratchpads-20200414-728d397b.diff`
 **What it does:**  
 Implements **scratchpads**, allowing you to spawn hidden windows (like a drop-down terminal).
 
@@ -206,7 +199,7 @@ A classic feature from workflows like i3 and bspwm. Scratchpads are great for te
 
 ---
 
-### 13. `dwm-status2d-systray-6.4.diff`
+### 14. `dwm-status2d-systray-6.4.diff`
 **What it does:**  
 Adds support for **color-embedded status text and a systray** in DWM’s status bar.
 
@@ -217,7 +210,7 @@ Combines two essential features:
 
 ---
 
-### 14. `dwm-togglefloatingcenter-20210806-138b405f.diff`
+### 15. `dwm-togglefloatingcenter-20210806-138b405f.diff`
 **What it does:**  
 Toggles a window between floating and tiled **while centering it if floating**.
 
@@ -226,7 +219,7 @@ Combines two useful actions into one — not only toggling float, but also ensur
 
 ---
 
-### 15. `dwm-vanitygaps-6.2.diff`
+### 16. `dwm-vanitygaps-6.2.diff`
 **What it does:**  
 Adds support for **customizable outer and inner gaps** between windows.
 
@@ -235,7 +228,7 @@ Essential for those who like cleaner layouts with space between windows. Especia
 
 ---
 
-### 16. `dwm-windowfollow-20221002-69d5652.diff`
+### 17. `dwm-windowfollow-20221002-69d5652.diff`
 **What it does:**  
 Makes it so that when you move a window to another tag, DWM will **follow you to that tag**.
 

@@ -61,13 +61,13 @@ static const Rule rules[] = {
 	{ "GitHub Desktop", 	NULL,       NULL,       1 << 1,         0,          1,			-1 },
 	{ "obs",				NULL,       NULL,       1 << 9,       	0,          0,			 -1 },
 	{ "discord",  			NULL,       NULL,       1 << 7,       	0,           0,			-1 },
-	{ "mpv",  				NULL,       NULL,       0,       	1,           1,			-1, 	0,0,1280,720,        4 },
-	{ "qimgv",    			NULL,       NULL,       0,       	1,           1,			-1, 	0,0,1280,720,        4 },
-	{ "Galculator",   		NULL,       NULL,       0,       	1,           1,			-1, 	0,0,900,600,         4 },
-	{ "Transmission-gtk",   NULL,       NULL,       0,       	1,           1,			-1, 	0,0,1280,720,        4 },
-	{ "Lxappearance",   	NULL,       NULL,       0,       	1,           1,			-1, 	0,0,1280,720,        4 },
-	{ "Pavucontrol",  		NULL,       NULL,       0,       	1,           1,			-1, 	0,0,1280,720,        4 },
-	{ "Tilix", 				"tilix", 	NULL, 		0, 				1, 			1, 		-1, 	0,0,1280,720,        4 },
+	{ "mpv",  				NULL,       NULL,       0,       	1,           1,			-1 },
+	{ "qimgv",    			NULL,       NULL,       0,       	1,           1,			-1 },
+	{ "Galculator",   		NULL,       NULL,       0,       	1,           1,			-1 },
+	{ "Transmission-gtk",   NULL,       NULL,       0,       	1,           1,			-1 },
+	{ "Lxappearance",   	NULL,       NULL,       0,       	1,           1,			-1 },
+	{ "Pavucontrol",  		NULL,       NULL,       0,       	1,           1,			-1 },
+	{ "Tilix", 				"tilix", 	NULL, 		0, 				1, 			1, 		-1 },
 	{ "Thunar",  			NULL,       NULL,       0,       	0,           1,			-1 },
 	{ NULL,		  "spterm1",	NULL,		SPTAG(0),  		1,    	-1 },
 	{ NULL,		  "spterm2",	NULL,		SPTAG(1),  		1,		-1 },
@@ -122,7 +122,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "ghostty", NULL };
+static const char *termcmd[]  = { "wezterm", NULL };
 #include "movestack.c"
 
 static const Key keys[] = {
