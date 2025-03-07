@@ -180,22 +180,23 @@ install_fastfetch() {
 # ============================================
 install_wezterm() {
     if command_exists wezterm; then
-        echo \"Wezterm is already installed. Skipping installation.\"
+        echo "Wezterm is already installed. Skipping installation."
         return
     fi
 
-    echo \"Installing Wezterm...\"
+    echo "Installing Wezterm..."
 
-    WEZTERM_URL=\"https://github.com/wezterm/wezterm/releases/download/20240203-110809-5046fc22/wezterm-20240203-110809-5046fc22.Debian12.deb\"
-    WEZTERM_DEB=\"$INSTALL_DIR/wezterm.deb\"
+    WEZTERM_URL="https://github.com/wezterm/wezterm/releases/download/20240203-110809-5046fc22/wezterm-20240203-110809-5046fc22.Debian12.deb"
+    TMP_DEB="/tmp/wezterm.deb"
 
-    curl -Lo \"$WEZTERM_DEB\" \"$WEZTERM_URL\" || die \"Failed to download Wezterm.\"
-    sudo apt install -y \"$WEZTERM_DEB\" || die \"Failed to install Wezterm.\"
+    wget -O "$TMP_DEB" "$WEZTERM_URL" || die "Failed to download Wezterm."
+    sudo apt install -y "$TMP_DEB" || die "Failed to install Wezterm."
+    rm -f "$TMP_DEB"
 
-    echo \"Copying Wezterm configuration...\"
-    wget -O ~/.wezterm.lua https://raw.githubusercontent.com/drewgrif/jag_dots/main/.wezterm.lua || die \"Failed to download wezterm config.\"
+    echo "Downloading Wezterm configuration..."
+    wget -O "$HOME/.wezterm.lua" "https://raw.githubusercontent.com/drewgrif/jag_dots/main/.wezterm.lua" || die "Failed to download wezterm config."
 
-    echo \"Wezterm installation and configuration complete.\"
+    echo "Wezterm installation and configuration complete."
 }
 
 # ============================================
