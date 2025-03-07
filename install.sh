@@ -176,19 +176,26 @@ install_fastfetch() {
 }
 
 # ============================================
-# Install Ghostty
+# Install Wezterm
 # ============================================
-install_myghostty() {
-    if command -v ghostty &>/dev/null; then
-        echo "Ghostty is already installed. Skipping."
+install_wezterm() {
+    if command_exists wezterm; then
+        echo \"Wezterm is already installed. Skipping installation.\"
         return
     fi
 
-    echo "Cloning and installing Ghostty..."
-    git clone https://github.com/drewgrif/myghostty "$INSTALL_DIR/myghostty" || die "Failed to clone Ghostty."
-    bash "$INSTALL_DIR/myghostty/install_ghostty.sh" || die "Ghostty installation failed."
+    echo \"Installing Wezterm...\"
 
-    echo "Ghostty installation complete."
+    WEZTERM_URL=\"https://github.com/wezterm/wezterm/releases/download/20240203-110809-5046fc22/wezterm-20240203-110809-5046fc22.Debian12.deb\"
+    WEZTERM_DEB=\"$INSTALL_DIR/wezterm.deb\"
+
+    curl -Lo \"$WEZTERM_DEB\" \"$WEZTERM_URL\" || die \"Failed to download Wezterm.\"
+    sudo apt install -y \"$WEZTERM_DEB\" || die \"Failed to install Wezterm.\"
+
+    echo \"Copying Wezterm configuration...\"
+    wget -O ~/.wezterm.lua https://raw.githubusercontent.com/drewgrif/jag_dots/main/.wezterm.lua || die \"Failed to download wezterm config.\"
+
+    echo \"Wezterm installation and configuration complete.\"
 }
 
 # ============================================
@@ -329,7 +336,7 @@ check_dwm
 setup_dwm_config
 install_ftlabs_picom
 install_fastfetch
-install_myghostty
+install_wezterm
 install_fonts
 install_theming
 change_theming
