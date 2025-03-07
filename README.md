@@ -22,7 +22,7 @@ This is my customized build of [dwm](https://dwm.suckless.org/), designed for my
 
 | Programs | Category |
 |---|---|
-| ghostty | Terminal (main) |
+| wezterm | Terminal (main) |
 | tilix | Terminal (quake mode) |
 | dmenu | Application Launcher |
 | rofi | Application Launcher |
