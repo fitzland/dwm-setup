@@ -13,6 +13,8 @@ This is my customized build of [dwm](https://dwm.suckless.org/), designed for my
 - `slstatus` for system information in the bar
 - `ft-picom` for transparent windows and compositing
 - `dunst` for lightweight notifications
+- `fastfetch` for screenshots and system hardware
+- `themed` using [Orchis GTK Theme](https://github.com/vinceliuice/Orchis-theme) | [Colloid Dark Icon Theme](https://github.com/vinceliuice/Colloid-icon-theme)
 
 ---
 
