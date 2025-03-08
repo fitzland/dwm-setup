@@ -173,6 +173,25 @@ install_fastfetch() {
     cmake -S . -B build
     cmake --build build
     sudo mv build/fastfetch /usr/local/bin/
+    echo "Fastfetch installation complete."
+    
+	echo "Setting up fastfetch configuration..."
+    # Ensure the target directory exists
+	mkdir -p "$HOME/.config/fastfetch"
+
+	# Clone the repository (shallow, sparse) and copy only the fastfetch config folder
+	git clone --depth=1 --filter=blob:none --sparse "https://github.com/drewgrif/jag_dots.git" "$HOME/tmp_jag_dots"
+	cd "$HOME/tmp_jag_dots"
+	git sparse-checkout set .config/fastfetch
+
+	# Move the folder into place
+	mv .config/fastfetch "$HOME/.config/"
+	
+	# Cleanup
+	cd && rm -rf "$HOME/tmp_jag_dots"
+	
+	echo "Fastfetch configuration setup complete."
+
 }
 
 # ============================================
