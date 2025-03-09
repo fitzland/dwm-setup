@@ -90,9 +90,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[\\]",     dwindle }, /* first entry is default */
-	{ "|M|",      centeredmaster },	
 	{ "[]=",      tile },
 	{ "[C]", columnlayout }, 
+	{ "|M|",      centeredmaster },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "TTT",      bstack },
 	{ "###",      nrowgrid },

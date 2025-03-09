@@ -1,10 +1,10 @@
 #!/bin/bash
 
 layouts=(
-    "[\\] Dwindle              Shift+Control+1"    
-    "|M| Centered Master       Shift+Control+2"    
-    "[]= Tile                  Shift+Control+3"    
-    "[C] Column Layout         Shift+Control+4"    
+    "[\\] Dwindle		  Shift+Control+1"    
+    "[]= Tile		  Shift+Control+2"    
+    "[C] Column Layout         Shift+Control+3"
+    "|M| Centered Master       Shift+Control+4"   
     ">< Floating               Shift+Control+5"    
     "TTT Bstack                Shift+Control+6"    
     "### N-Row Grid            Shift+Control+7"    
@@ -22,9 +22,9 @@ layout_name=$(echo "$selected" | cut -d ' ' -f 1-2)
 
 case "$layout_name" in
     "[\\] Dwindle") xdotool key shift+control+1 ;;
-    "|M| Centered") xdotool key shift+control+2 ;;
-    "[]= Tile") xdotool key shift+control+3 ;;
-    "[C] Column") xdotool key shift+control+4 ;;
+    "[]= Tile") xdotool key shift+control+2 ;;
+    "[C] Column") xdotool key shift+control+3 ;;
+    "|M| Centered") xdotool key shift+control+4 ;;
     ">< Floating") xdotool key shift+control+5 ;;
     "TTT Bstack") xdotool key shift+control+6 ;;
     "### N-Row") xdotool key shift+control+7 ;;
