@@ -56,19 +56,19 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor    float x,y,w,h         floatborderpx*/
-	{ "Gimp",     			NULL,       NULL,       1 << 8,         0,          0,			 -1 },
-	{ "GitHub Desktop", 	NULL,       NULL,       1 << 1,         0,          1,			-1 },
-	{ "obs",				NULL,       NULL,       1 << 9,       	0,          0,			 -1 },
-	{ "discord",  			NULL,       NULL,       1 << 7,       	0,           0,			-1 },
-	{ "mpv",  				NULL,       NULL,       0,       	1,           1,			-1 },
-	{ "qimgv",    			NULL,       NULL,       0,       	1,           1,			-1 },
-	{ "Galculator",   		NULL,       NULL,       0,       	1,           1,			-1 },
-	{ "Transmission-gtk",   NULL,       NULL,       0,       	1,           1,			-1 },
-	{ "Lxappearance",   	NULL,       NULL,       0,       	1,           1,			-1 },
-	{ "Pavucontrol",  		NULL,       NULL,       0,       	1,           1,			-1 },
-	{ "Tilix", 				"tilix", 	NULL, 		0, 				1, 			1, 		-1 },
-	{ "Thunar",  			NULL,       NULL,       0,       	0,           1,			-1 },
+	/* class      			instance    title       tags mask     isfloating   	iscentered		monitor */
+	{ "Gimp",     			NULL,       NULL,       1 << 8,         0,          	0,			-1 },
+	{ "GitHub Desktop", 	NULL,       NULL,       1 << 1,         0,          	1,			-1 },
+	{ "obs",				NULL,       NULL,       1 << 9,       	0,          	0,			-1 },
+	{ "discord",  			NULL,       NULL,       1 << 7,       	0,          	0,			-1 },
+	{ "mpv",  				NULL,       NULL,       0,       		1,           	1,			-1 },
+	{ "qimgv",    			NULL,       NULL,       0,       		1,           	1,			-1 },
+	{ "Galculator",   		NULL,       NULL,       0,       		1,           	1,			-1 },
+	{ "Transmission-gtk",   NULL,       NULL,       0,       		1,           	1,			-1 },
+	{ "Lxappearance",   	NULL,       NULL,       0,       		1,           	1,			-1 },
+	{ "Pavucontrol",  		NULL,       NULL,       0,       		1,           	1,			-1 },
+	{ "Tilix", 				"tilix", 	NULL, 		0, 				1, 				1, 			-1 },
+	{ "Thunar",  			NULL,       NULL,       0,       		0,           	1,			-1 },
 	{ NULL,		  "spterm1",	NULL,		SPTAG(0),  		1,    	-1 },
 	{ NULL,		  "spterm2",	NULL,		SPTAG(1),  		1,		-1 },
 };
