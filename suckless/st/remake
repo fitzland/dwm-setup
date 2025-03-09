@@ -1,5 +1,0 @@
-#!/bin/sh
-
-rm config.h
-make
-sudo make clean install
