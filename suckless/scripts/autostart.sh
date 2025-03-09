@@ -3,7 +3,7 @@
 slstatus &
 
 # nextcloud
-~/.local/apps/Nextcloud-3.15.3-x86_64.AppImage &
+# ~/.local/apps/Nextcloud-3.15.3-x86_64.AppImage &
 
 # polkit
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
