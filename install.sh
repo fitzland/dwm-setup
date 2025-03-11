@@ -261,8 +261,8 @@ install_fonts() {
 # Install GTK Theme & Icons
 # ============================================
 install_theming() {
-    GTK_THEME_NAME="Orchis-Teal-Dark"
-    ICON_THEME_NAME="Colloid-Teal-Everforest-Dark"
+    GTK_THEME_NAME="Orchis-Grey-Dark"
+    ICON_THEME_NAME="Colloid-Grey-Dracula-Dark"
 
     if [ -d "$HOME/.themes/$GTK_THEME_NAME" ] || [ -d "$HOME/.icons/$ICON_THEME_NAME" ]; then
         echo "One or more themes/icons already installed. Skipping theming installation."
@@ -274,12 +274,12 @@ install_theming() {
     # GTK Theme Installation
     git clone "$GTK_THEME" "$INSTALL_DIR/Orchis-theme" || die "Failed to clone Orchis theme."
     cd "$INSTALL_DIR/Orchis-theme" || die "Failed to enter Orchis theme directory."
-    yes | ./install.sh -c dark -t teal orange --tweaks black
+    yes | ./install.sh -c dark -t default grey teal orange --tweaks black
 
     # Icon Theme Installation
     git clone "$ICON_THEME" "$INSTALL_DIR/Colloid-icon-theme" || die "Failed to clone Colloid icon theme."
     cd "$INSTALL_DIR/Colloid-icon-theme" || die "Failed to enter Colloid icon theme directory."
-    ./install.sh -t teal orange -s default gruvbox everforest
+    ./install.sh -t teal orange grey default -s default gruvbox everforest dracula
 
     echo "Theming installation complete."
 }
@@ -296,8 +296,8 @@ mkdir -p ~/.config/gtk-3.0
 # Write to ~/.config/gtk-3.0/settings.ini
 cat << EOF > ~/.config/gtk-3.0/settings.ini
 [Settings]
-gtk-theme-name=Orchis-Teal-Dark
-gtk-icon-theme-name=Colloid-Teal-Everforest-Dark
+gtk-theme-name=Orchis-Grey-Dark
+gtk-icon-theme-name=Colloid-Grey-Dracula-Dark
 gtk-font-name=Sans 10
 gtk-cursor-theme-name=Adwaita
 gtk-cursor-theme-size=0
