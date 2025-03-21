@@ -52,6 +52,7 @@ This is my customized build of [dwm](https://dwm.suckless.org/), designed for my
 | `~/.config/suckless/rofi/keybinds.rasi` | Theme for `rofi` keybinding viewer |
 | `~/.config/suckless/dunst/dunstrc` | Notification settings |
 | `~/.config/suckless/picom/picom.conf` | Compositor settings |
+| `~/.config/wezterm/wezterm.lua` | WezTerm config location |
 
 ---
 
