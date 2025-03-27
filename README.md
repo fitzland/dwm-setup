@@ -69,6 +69,36 @@ You can view both in a combined `rofi` menu using:
 
 ---
 
+## 🧱 Layouts Overview
+
+This build of DWM includes several layout styles you can cycle through using:
+
+```
+Super + Shift + L
+```
+
+Each layout changes how windows are arranged. Here's what each one does:
+
+| Symbol | Layout Function | Description |
+|--------|------------------|-------------|
+| `[]=`  | `tile`           | Default master-stack layout |
+| `[M]`  | `monocle`        | All windows fullscreen, one at a time |
+| `><>`  | Floating (`NULL`) | Freely place/move windows |
+| `|M|`  | `centeredmaster` | Main window in center, others on sides |
+| `[@]`  | `spiral`         | Fibonacci-style spiral |
+| `[\]`  | `dwindle`        | Inward shrinking spiral layout |
+| `[C]`  | `columnlayout`   | Vertical columns — great for terminals |
+| `TTT`  | `bstack`         | Horizontal master on top, stack below |
+| `===`  | `bstackhoriz`    | Like bstack, but more even tiling |
+| `H[]`  | `deck`           | One large master, others stacked behind |
+| `HHH`  | `grid`           | Even grid — good for multiple apps |
+| `:::`  | `gaplessgrid`    | Grid layout without spacing |
+| `###`  | `nrowgrid`       | Grid with fixed row count |
+| `>M>`  | `centeredfloatingmaster` | Floating windows with a centered master |
+| `---`  | `horizgrid`      | Windows tiled horizontally in a grid |
+
+---
+
 ## 📝 Patches Summary
 
 | Patch | Category |
