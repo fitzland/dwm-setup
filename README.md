@@ -71,31 +71,68 @@ You can view both in a combined `rofi` menu using:
 
 ## 🧱 Layouts Overview
 
-This build of DWM includes several layout styles you can cycle through using:
+You can cycle through available window layouts using:
 
 ```
 Super + Shift + L
 ```
 
-Each layout changes how windows are arranged. Here's what each one does:
+<details>
+<summary>Click to expand layout descriptions</summary>
 
-| Symbol | Layout Function | Description |
-|--------|------------------|-------------|
-| `[]=`  | `tile`           | Default master-stack layout |
-| `[M]`  | `monocle`        | All windows fullscreen, one at a time |
-| `><>`  | Floating (`NULL`) | Freely place/move windows |
-| `|M|`  | `centeredmaster` | Main window in center, others on sides |
-| `[@]`  | `spiral`         | Fibonacci-style spiral |
-| `[\]`  | `dwindle`        | Inward shrinking spiral layout |
-| `[C]`  | `columnlayout`   | Vertical columns — great for terminals |
-| `TTT`  | `bstack`         | Horizontal master on top, stack below |
-| `===`  | `bstackhoriz`    | Like bstack, but more even tiling |
-| `H[]`  | `deck`           | One large master, others stacked behind |
-| `HHH`  | `grid`           | Even grid — good for multiple apps |
-| `:::`  | `gaplessgrid`    | Grid layout without spacing |
-| `###`  | `nrowgrid`       | Grid with fixed row count |
-| `>M>`  | `centeredfloatingmaster` | Floating windows with a centered master |
-| `---`  | `horizgrid`      | Windows tiled horizontally in a grid |
+<br>
+
+These are the layouts included in this build, in the exact order they appear in `config.def.h`:
+
+- **`dwindle`** (`[\]`)  
+  Fibonacci-style dwindle layout (spirals inward) — **default layout**
+
+- **`tile`** (`[]=`)  
+  Classic master-stack tiling layout
+
+- **`columnlayout`** (`[C]`)  
+  Windows arranged in vertical columns
+
+- **`centeredmaster`** (`|M|`)  
+  Master window in center, slaves on sides (tiling)
+
+- **Floating** (`><>`)  
+  No layout function (`NULL`) — windows float freely
+
+- **`bstack`** (`TTT`)  
+  Master on top, stack below
+
+- **`nrowgrid`** (`###`)  
+  Grid layout with a fixed number of rows
+
+- **`deck`** (`H[]`)  
+  Master window with a tabbed stack
+
+- **`gaplessgrid`** (`:::`)  
+  Grid layout with no gaps
+
+- **`spiral`** (`[@]`)  
+  Classic Fibonacci spiral layout
+
+- **`monocle`** (`[M]`)  
+  All windows stacked fullscreen
+
+- **`grid`** (`HHH`)  
+  Even grid of windows
+
+- **`bstackhoriz`** (`===`)  
+  Like `bstack`, but evenly split horizontally
+
+- **`deck`** (again) (`H[]`)  
+  Duplicate — may serve as an alternate
+
+- **`centeredfloatingmaster`** (`>M>`)  
+  Floating windows with a centered master window
+
+- **`horizgrid`** (`---`)  
+  Horizontal grid — useful for wide monitors
+
+</details>
 
 ---
 
