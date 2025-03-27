@@ -2,6 +2,8 @@
 
 This is my customized build of [dwm](https://dwm.suckless.org/), designed for my personal workflow. It includes essential patches, a customized `config.def.h`, and pre-defined keybindings to enhance the tiling window manager experience.
 
+![2025-03-27_03-24](https://github.com/user-attachments/assets/e3f8481a-8eb4-420c-bf84-77218c29a679)
+
 ---
 
 ## Features
