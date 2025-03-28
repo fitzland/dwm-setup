@@ -316,8 +316,8 @@ EOF
 
 # Write to ~/.gtkrc-2.0
 cat << EOF > ~/.gtkrc-2.0
-gtk-theme-name="Orchis-Teal-Dark"
-gtk-icon-theme-name="Colloid-Teal-Everforest-Dark"
+gtk-theme-name="Orchis-Grey-Dark"
+gtk-icon-theme-name="Colloid-Grey-Dracula-Dark"
 gtk-font-name="Sans 10"
 gtk-cursor-theme-name="Adwaita"
 gtk-cursor-theme-size=0
