@@ -246,6 +246,10 @@ install_fonts() {
             rm /tmp/$font.zip
         fi
     done
+    
+    fc-cache -f || echo "Warning: Error rebuilding font cache."
+
+    echo "Font installation completed."
 }
 
 
