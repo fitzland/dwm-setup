@@ -1,315 +1,138 @@
-# JustAGuy Linux DWM Build
+# 🪟 openbox-setup
 
-This is my customized build of [dwm](https://dwm.suckless.org/), designed for my personal workflow. It includes essential patches, a customized `config.def.h`, and pre-defined keybindings to enhance the tiling window manager experience.
+A complete Openbox configuration setup by [JustAGuy Linux](https://www.youtube.com/@JustAGuyLinux), featuring a polished, minimal desktop experience with theming, tools, and smart automation via a single `install.sh` script.
 
-![2025-03-27_03-24](https://github.com/user-attachments/assets/e3f8481a-8eb4-420c-bf84-77218c29a679)
+![2025-03-27_14-36_3](https://github.com/user-attachments/assets/7c5a4f82-3ec8-48e2-aab6-924d5f41b261)
 
----
+## 📦 What's Included
 
-## Features
+- 🖼️ Openbox configuration with custom theme: `Simply_Circles_Dark`
+- 🧠 Smart workspace keybinds, window snapping, and mouse actions
+- 📁 File manager: Thunar with archive plugin
+- 🖥️ Terminal: [WezTerm](https://wezfurlong.org/wezterm/)
+- 🔍 App launcher: XFCE4-appfinder
+- 🔔 Notifications: Dunst
+- 💡 Compositor: Picom (FT-Labs build)
+- 📊 Panel: Polybar
+- 🌗 Redshift toggle + volume scripts
+- 🎛️ GTK & icon themes (Orchis & Colloid)
+- 📄 Keybind viewer: `Super + h` for Rofi
+- 🧰 `obmenu-generator` with dynamic menu support
 
-- Dynamic window management with floating and tiling modes
-- Keybindings for window navigation, layouts, and scratchpads
-- Integration with `sxhkd` for extended keybinding management
-- Custom `rofi` keybinding viewer (optional)
-- `slstatus` for system information in the bar
-- `ft-picom` for transparent windows and compositing
-- `dunst` for lightweight notifications
-- `fastfetch` for screenshots and system hardware
-- `themed` using [Orchis GTK Theme](https://github.com/vinceliuice/Orchis-theme) | [Colloid Dark Icon Theme](https://github.com/vinceliuice/Colloid-icon-theme)
+## 📂 `~/.config/openbox` Layout
 
----
-
-## 📥 Installation Summary
-
-| Programs | Category |
-|---|---|
-| wezterm | Terminal (main) |
-| tilix | Terminal (quake mode) |
-| dmenu | Application Launcher |
-| rofi | Application Launcher |
-| slstatus | Status Bar |
-| ft-picom | Compositor |
-| dunst | Notification Daemon |
-| sxhkd | Keybinding Daemon |
-
----
-
-## Features
-
-- Dynamic window management with floating and tiling modes
-- Keybindings for window navigation, layouts, and scratchpads
-- Integration with `sxhkd` for extended keybinding management
-- Custom `rofi` keybinding viewer (optional)
-
----
-
-## 📂 Configuration Files
-
-| File | Description |
-|---|---|
-| `~/.config/suckless/scripts/autostart.sh` | Autostart commands on login |
-| `~/.config/suckless/dwm/keybindings.txt` | Human-readable DWM keybindings |
-| `~/.config/suckless/sxhkd/sxhkdrc` | Keybindings for `sxhkd` |
-| `~/.config/suckless/rofi/keybinds.rasi` | Theme for `rofi` keybinding viewer |
-| `~/.config/suckless/dunst/dunstrc` | Notification settings |
-| `~/.config/suckless/picom/picom.conf` | Compositor settings |
-| `~/.config/wezterm/wezterm.lua` | WezTerm config location |
-
----
-
-## 🔑 Keybindings Overview
-
-Keybindings are stored in:
-
-- `~/.config/suckless/dwm/keybindings.txt` for **DWM keybindings**.
-- `~/.config/suckless/sxhkd/sxhkdrc` for **sxhkd keybindings**.
-
-You can view both in a combined `rofi` menu using:
-
-``` ~/.config/suckless/scripts/help ```
-
----
-
-## 🧱 Layouts Overview
-
-You can cycle through available window layouts using:
+This is what your Openbox environment will look like after installation:
 
 ```
-Super + Shift + L
+~/.config/openbox/
+├── rc.xml                 # Main Openbox configuration
+├── autostart              # Startup applications
+├── environment            # Session environment variables
+├── menu.xml               # Right-click menu (static fallback)
+├── keybinds.rasi          # Rofi template to display keybinds
+├── wallpaper/             # Default and user wallpapers
+├── dunst/                 # Notification system configuration
+│   └── dunstrc
+├── picom/                 # Picom compositor configuration
+│   └── picom.conf
+├── polybar/               # Panel bar setup
+│   ├── config.ini
+│   └── launch.sh
+├── rofi/                  # Rofi theme and launcher config
+│   ├── config.rasi
+│   └── keybinds.rasi
+├── scripts/               # Custom helper scripts
+│   ├── redshift-on
+│   ├── redshift-off
+│   ├── changevolume
+│   └── keyhelper.sh
+└── obmenu-generator/      # Dynamic Openbox menu system
+    └── schema.pl
 ```
 
-<details>
-<summary>Click to expand layout descriptions</summary>
-
-<br>
-
-These are the layouts included in this build, in the exact order they appear in `config.def.h`:
-
-- **`dwindle`** (`[\]`)  
-  Fibonacci-style dwindle layout (spirals inward) — **default layout**
-
-- **`tile`** (`[]=`)  
-  Classic master-stack tiling layout
-
-- **`columnlayout`** (`[C]`)  
-  Windows arranged in vertical columns
-
-- **`centeredmaster`** (`|M|`)  
-  Master window in center, slaves on sides (tiling)
-
-- **Floating** (`><>`)  
-  No layout function (`NULL`) — windows float freely
-
-- **`bstack`** (`TTT`)  
-  Master on top, stack below
-
-- **`nrowgrid`** (`###`)  
-  Grid layout with a fixed number of rows
-
-- **`deck`** (`H[]`)  
-  Master window with a tabbed stack
-
-- **`gaplessgrid`** (`:::`)  
-  Grid layout with no gaps
-
-- **`spiral`** (`[@]`)  
-  Classic Fibonacci spiral layout
-
-- **`monocle`** (`[M]`)  
-  All windows stacked fullscreen
-
-- **`grid`** (`HHH`)  
-  Even grid of windows
-
-- **`bstackhoriz`** (`===`)  
-  Like `bstack`, but evenly split horizontally
-
-- **`deck`** (again) (`H[]`)  
-  Duplicate — may serve as an alternate
-
-- **`centeredfloatingmaster`** (`>M>`)  
-  Floating windows with a centered master window
-
-- **`horizgrid`** (`---`)  
-  Horizontal grid — useful for wide monitors
-
-</details>
-
----
-
-## 📝 Patches Summary
-
-| Patch | Category |
-|---|---|
-| alwayscenter | Floating windows |
-| attachbottom | Window order |
-| cool-autostart | Autostart |
-| fixborders | Visual fix |
-| focusadjacenttag | Navigation |
-| focusedontop | Floating windows |
-| focusonnetactive | Compatibility |
-| movestack | Window management |
-| pertag | Layout memory |
-| preserveonrestart | Session persistence |
-| restartsig | Restart ability |
-| scratchpads | Workflow |
-| status2d-systray | Bar features |
-| togglefloatingcenter | Floating windows |
-| vanitygaps | Visual spacing |
-| windowfollow | Navigation |
-
-
----
-
-## 📜 Patch Documentation: Your DWM Patch List
-
----
-
-### 1. `dwm-alwayscenter-20200625-f04cac6.diff`
-**What it does:**  
-Ensures that floating windows (new ones) always appear centered on the screen.
-
-**Why it's useful:**  
-Prevents floating windows from opening at weird edges or offsets, especially useful for dialogs or apps you want neatly centered (like file pickers or floating terminal windows).
-
----
-
-### 2. `dwm-attachbottom-6.3.diff`
-**What it does:**  
-Newly spawned windows are added at the **bottom** of the stack instead of at the top.
-
-**Why it's useful:**  
-This can help keep your active window in focus instead of being immediately pushed out when new windows are created. Provides a more "natural" stacking order for some users.
-
----
-
-### 3. `dwm-cool-autostart-20240312-9f88553.diff`
-**What it does:**  
-Adds an **autostart mechanism** to DWM without using `.xinitrc`.
-
-**Why it's useful:**  
-You can easily manage startup scripts directly in DWM’s codebase, making it more portable (especially when using login managers instead of `startx`). This patch also gracefully re-runs your autostart scripts if DWM is restarted.
-
----
-
-### 4. `dwm-fixborders-6.2.diff`
-**What it does:**  
-Fixes a bug where **border width may be incorrect** after switching between floating and tiled layouts.
-
-**Why it's useful:**  
-Prevents graphical glitches and ensures windows always have the correct borders, especially on tiling/floating transitions.
-
----
-
-### 5. `dwm-focusadjacenttag-6.3.diff`
-**What it does:**  
-Adds keybindings to **quickly switch to the next or previous tag**.
-
-**Why it's useful:**  
-Great for workflows where you spread work across multiple tags. Makes it easier to quickly switch to adjacent tags without a numeric jump.
-
----
-
-### 6. `dwm-focusedontop-6.5.diff`
-**What it does:**  
-Forces the currently focused floating window to always be on top.
-
-**Why it's useful:**  
-Prevents floating windows from accidentally being covered by tiled windows when they lose focus.
-
-**[This is a patch created by Bakkeby for dwm-flexipatch](https://github.com/bakkeby/patches/blob/master/dwm/dwm-focusedontop-6.5.diff)**
-
----
-
-### 7. `dwm-focusonnetactive-6.2.diff`
-**What it does:**  
-Ensures DWM correctly focuses windows that request focus via _NET_ACTIVE_WINDOW (like some app popups).
-
-**Why it's useful:**  
-Improves compatibility with external programs and scripts (e.g., notification popups, some dialogs, and xdg-open behavior).
-
----
-
-### 8. `dwm-movestack-20211115-a786211.diff`
-**What it does:**  
-Allows you to **move windows up/down the stack**.
-
-**Why it's useful:**  
-Essential for organizing windows in the master-stack layout, letting you reorder windows directly instead of closing/reopening them.
-
----
-
-### 9. `dwm-pertag-20200914-61bb8b2.diff`
-**What it does:**  
-Each tag remembers its own **layout, master count, and gaps settings**.
-
-**Why it's useful:**  
-This is one of the most **essential DWM patches** if you use multiple tags. It allows each workspace (tag) to have its own independent configuration instead of all tags sharing the same layout.
-
----
-
-### 10. `dwm-preserveonrestart-6.3.diff`
-**What it does:**  
-Preserves window positions when restarting DWM.
-
-**Why it's useful:**  
-Critical if you like to restart DWM to reload config changes, keeping windows in place instead of resetting them.
-
----
-
-### 11. `dwm-restartsig-20180523-6.2.diff`
-**What it does:**  
-Adds a **restart signal handler** so you can restart DWM without logging out.
-
-**Why it's useful:**  
-Allows easy config reloads and minor changes without logging out, pairing well with `preserveonrestart`.
-
----
-
-### 12. `dwm-scratchpads-20200414-728d397b.diff`
-**What it does:**  
-Implements **scratchpads**, allowing you to spawn hidden windows (like a drop-down terminal).
-
-**Why it's useful:**  
-A classic feature from workflows like i3 and bspwm. Scratchpads are great for terminals, music players, or quick note apps.
-
----
-
-### 13. `dwm-status2d-systray-6.4.diff`
-**What it does:**  
-Adds support for **color-embedded status text and a systray** in DWM’s status bar.
-
-**Why it's useful:**  
-Combines two essential features:
-- Colored status text for aesthetic and information clarity.
-- Systray support for handling system tray icons (volume, network, etc.), which is not natively supported in DWM.
-
----
-
-### 14. `dwm-togglefloatingcenter-20210806-138b405f.diff`
-**What it does:**  
-Toggles a window between floating and tiled **while centering it if floating**.
-
-**Why it's useful:**  
-Combines two useful actions into one — not only toggling float, but also ensuring floating windows are neatly centered.
-
----
-
-### 15. `dwm-vanitygaps-6.2.diff`
-**What it does:**  
-Adds support for **customizable outer and inner gaps** between windows.
-
-**Why it's useful:**  
-Essential for those who like cleaner layouts with space between windows. Especially good for aesthetic "rice" setups.
-
----
-
-### 16. `dwm-windowfollow-20221002-69d5652.diff`
-**What it does:**  
-Makes it so that when you move a window to another tag, DWM will **follow you to that tag**.
-
-**Why it's useful:**  
-Enhances workflow — instead of moving a window to another tag and then manually switching to that tag, DWM follows automatically.
-
-
+## 🚀 Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/drewgrif/openbox-setup.git
+cd openbox-setup
+chmod +x install.sh
+```
+
+2. Run the installer:
+```bash
+./install.sh
+```
+
+3. Follow the prompts — your Openbox environment will be ready in minutes!
+
+## 💾 What It Installs
+
+The script will:
+
+- Back up any existing `~/.config/openbox` directory
+- Install required packages (`openbox`, `rofi`, `picom`, `thunar`, etc.)
+- Set up themes and GTK appearance
+- Install [fastfetch](https://github.com/fastfetch-cli/fastfetch) and your preferred config
+- Install [wezterm](https://github.com/wez/wezterm)
+- Optionally replace `.bashrc` with one from [jag_dots](https://github.com/drewgrif/jag_dots)
+- Install and configure `obmenu-generator` with a custom schema
+- Apply user directories and screenshot folder
+- Enable relevant services (`avahi-daemon`, `acpid`)
+
+## 🧷 Key Features
+
+| Shortcut            | Action                           |
+|---------------------|----------------------------------|
+| `Super + Enter`     | Launch terminal (WezTerm)        |
+| `Super + Space`     | App launcher (xfce4-appfinder)              |
+| `Super + H`         | Show keybinds in terminal        |
+| `Super + Arrow Keys`| Snap window to side/center       |
+| `Super + 1-0`       | Switch to desktop                |
+| `Super + Shift + 1-0`| Move window to desktop          |
+| `Print`             | Screenshot via `maim`            |
+| `Super + Print`     | Screenshot via `flameshot`       |
+| `XF86Audio*`        | Multimedia keys support          |
+
+## 🧠 Notes
+
+- Menu is generated dynamically via `obmenu-generator -p -i`
+- Wallpapers live in `~/.config/openbox/wallpaper/`
+- Scripts are in `~/.config/openbox/scripts/`
+- Keybind reference opens via `Super + H`
+
+## 🎨 Themes
+
+- **Openbox theme:** `Simply_Circles_Dark` (included in this repo)
+- **GTK Theme:** [Orchis](https://github.com/vinceliuice/Orchis-theme) — dark with teal & grey tweaks
+- **Icon Theme:** [Colloid](https://github.com/vinceliuice/Colloid-icon-theme) — Everforest/Dracula variants  
+  > 💡 _Special thanks to [vinceliuice](https://github.com/vinceliuice) for creating these excellent GTK and icon themes._
+
+## 🛠️ Repo Directory Structure
+
+```
+openbox-setup/
+├── install.sh              # One script to install and configure everything
+├── README.md               # This file
+└── config/
+    ├── rc.xml              # Main Openbox config
+    ├── autostart           # Startup applications
+    ├── environment         # Session environment variables
+    ├── menu.xml            # Static right-click menu
+    ├── keybinds.rasi       # Rofi cheatsheet theme
+    ├── dunst/              # Notification settings
+    ├── picom/              # FT-Labs Picom config
+    ├── polybar/            # Panel configuration
+    ├── rofi/               # Rofi themes/configs
+    ├── scripts/            # Custom volume/redshift/keybind tools
+    ├── wallpaper/          # Default and custom wallpapers
+    ├── obmenu/             # obmenu-generator schema
+    └── themes/
+        └── Simply_Circles_Dark/  # Openbox window border theme
+```
+
+
+## 📺 Watch on YouTube
+
+Want to see how it looks and works?  
+🎥 Check out [JustAGuy Linux on YouTube](https://www.youtube.com/@JustAGuyLinux)
