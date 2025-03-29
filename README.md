@@ -115,15 +115,29 @@ These are the layouts included in this build, in the exact order from `config.de
 
 ## 📂 Configuration Files
 
-| File Path                                | Description                        |
-|------------------------------------------|------------------------------------|
-| `~/.config/suckless/dwm/config.h`        | Main DWM configuration header      |
-| `~/.config/suckless/scripts/autostart.sh`| Autostart commands on login        |
-| `~/.config/suckless/sxhkd/sxhkdrc`       | Keybindings for sxhkd              |
-| `~/.config/suckless/slstatus/config.h`   | Status bar (slstatus) config       |
-| `~/.config/suckless/dunst/dunstrc`       | Dunst notification settings        |
-| `~/.config/suckless/picom/picom.conf`    | Picom compositor config            |
-| `~/.config/wezterm/wezterm.lua`          | WezTerm terminal configuration     |
+```
+~/.config/suckless/
+├── dwm/
+│   ├── config.h             # Main DWM configuration
+├── st/
+│   └── config.h             # Barely Patched st terminal configuration
+├── slstatus/
+│   └── config.h             # Status bar configuration
+├── sxhkd/
+│   └── sxhkdrc              # Keybindings for sxhkd
+├── dunst/
+│   └── dunstrc              # Notification settings
+├── picom/
+│   └── picom.conf           # Compositor configuration
+├── rofi/
+│   └── keybinds.rasi        # Rofi keybinding cheatsheet
+└── scripts/
+    ├── autostart.sh         # Startup script
+    └── help                 # Launches keybind viewer
+
+~/.config/wezterm/
+└── wezterm.lua              # Terminal configuration
+```
 
 ---
 
