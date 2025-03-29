@@ -24,18 +24,22 @@ This assumes a fresh Debian or Debian-based install with `sudo` access.
 
 ## 📦 What It Installs
 
-| Component     | Purpose                          |
-|---------------|----------------------------------|
-| `dwm`         | Tiling window manager (patched)  |
-| `sxhkd`       | Keybinding daemon                |
-| `slstatus`    | Status bar for DWM               |
-| `ft-picom`    | Compositor with transparency     |
-| `dunst`       | Lightweight notifications        |
-| `rofi`        | App launcher + keybind viewer    |
-| `wezterm`     | Main terminal emulator           |
-| `tilix`       | Quake-style terminal option      |
-| `fastfetch`   | System info for screenshots      |
-| `dmenu`       | Minimal app launcher alternative |
+| Component           | Purpose                          |
+|---------------------|----------------------------------|
+| `dwm`               | Tiling window manager (patched)  |
+| `sxhkd`             | Keybinding daemon                |
+| `slstatus`          | Status bar for DWM               |
+| `thunar`            | File Manager (+plugins)          |
+| `picom` (FT-Labs)   | Compositor with transparency     |
+| `dunst`             | Lightweight notifications        |
+| `rofi`              | App launcher + keybind viewer    |
+| `wezterm`           | Main terminal emulator           |
+| `tilix`             | Quake-style terminal option      |
+| `firefox-esr`       | Default web browser              |
+| `geany` + plugins   | Lightweight IDE                  |
+| `fastfetch`         | System info for screenshots      |
+| `flameshot`         | Screenshot utilities             |
+| `dmenu`             | Minimal app launcher alternative |
 
 Also includes GTK and icon themes for a cohesive look.
 
