@@ -33,13 +33,20 @@ This assumes a fresh Debian or Debian-based install with `sudo` access.
 | `picom` `(FT-Labs)` | Compositor with transparency     |
 | `dunst`             | Lightweight notifications        |
 | `rofi`              | App launcher + keybind viewer    |
+| `dmenu`             | Minimal app launcher alternative |
 | `wezterm`           | Main terminal emulator           |
 | `tilix`             | Quake-style terminal option      |
 | `firefox-esr`       | Default web browser              |
 | `geany` + `plugins `| Lightweight IDE                  |
 | `fastfetch`         | System info for screenshots      |
-| `flameshot`         | Screenshot utilities             |
-| `dmenu`             | Minimal app launcher alternative |
+| `nala`              | Better apt frontend              |
+| `pipewire`          | Audio handling                   |
+| `flameshot`,        | Screenshot tools                 |
+| `micro`             | Terminal text editor             |
+| `redshift`          | Night light                      |
+| `qimgv`             | Lightweight image viewer         |
+| `fzf`, etc.         | Utilities & enhancements         |
+
 
 > 📄 _Need help with Geany? See the full guide at [justaguylinux.com/documentation/software/geany](https://justaguylinux.com/documentation/software/geany)_
 ---
@@ -74,8 +81,8 @@ Launch the keybind cheatsheet anytime with:
 | `Super + Q`          | Close focused window            |
 | `Super + Shift + R`  | Restart DWM                     |
 | `Super + Shift + L`  | Cycle through layouts           |
-| `Super + 1–9`        | Switch to tag                   |
-| `Super + Shift + 1–9`| Move window to tag              |
+| `Super + 1–=`        | Switch to tag                   |
+| `Super + Shift + 1–=`| Move window to tag              |
 
 ---
 
