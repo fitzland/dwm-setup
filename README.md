@@ -30,13 +30,13 @@ This assumes a fresh Debian or Debian-based install with `sudo` access.
 | `sxhkd`             | Keybinding daemon                |
 | `slstatus`          | Status bar for DWM               |
 | `thunar`            | File Manager (+plugins)          |
-| `picom` (FT-Labs)   | Compositor with transparency     |
+| `picom` `(FT-Labs)` | Compositor with transparency     |
 | `dunst`             | Lightweight notifications        |
 | `rofi`              | App launcher + keybind viewer    |
 | `wezterm`           | Main terminal emulator           |
 | `tilix`             | Quake-style terminal option      |
 | `firefox-esr`       | Default web browser              |
-| `geany` + plugins   | Lightweight IDE                  |
+| `geany` + `plugins `| Lightweight IDE                  |
 | `fastfetch`         | System info for screenshots      |
 | `flameshot`         | Screenshot utilities             |
 | `dmenu`             | Minimal app launcher alternative |
