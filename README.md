@@ -41,8 +41,7 @@ This assumes a fresh Debian or Debian-based install with `sudo` access.
 | `flameshot`         | Screenshot utilities             |
 | `dmenu`             | Minimal app launcher alternative |
 
-Also includes GTK and icon themes for a cohesive look.
-
+> 📄 _Need help with Geany? See the full guide at [justaguylinux.com/documentation/software/geany](https://justaguylinux.com/documentation/software/geany)_
 ---
 
 ## 🎨 Appearance & Theming
