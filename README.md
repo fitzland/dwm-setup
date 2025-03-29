@@ -297,7 +297,7 @@ Makes it so that when you move a window to another tag, DWM will **follow you to
 **Why it's useful:**  
 Enhances workflow — instead of moving a window to another tag and then manually switching to that tag, DWM follows automatically.
 
-<details>
+</details>
 
 ## 📺 Watch on YouTube
 
