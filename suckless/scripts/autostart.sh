@@ -3,13 +3,13 @@
 slstatus &
 
 # nextcloud
-# ~/.local/apps/Nextcloud-3.15.3-x86_64.AppImage &
+# ~/Applications/Nextcloud-3.16.4-x86_64.AppImage &
 
 # polkit
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
 # background
-feh --bg-scale ~/.config/suckless/wallpaper/wallhaven-m3m2zm_3440x1440.png &
+feh --bg-scale ~/.config/suckless/wallpaper/wallhaven-d61z1m_3440x1440.png &
 
 # sxhkd
 # (re)load sxhkd for keybinds
