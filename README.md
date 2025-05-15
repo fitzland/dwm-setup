@@ -35,7 +35,7 @@ This assumes a fresh Debian or Debian-based install with `sudo` access.
 | `rofi`              | App launcher + keybind viewer    |
 | `dmenu`             | Minimal app launcher alternative |
 | `wezterm`           | Main terminal emulator           |
-| `tilix`             | Quake-style terminal option      |
+| `st`                | Minimally patched for scratchpad |
 | `firefox-esr`       | Default web browser              |
 | `geany` + `plugins `| Lightweight IDE                  |
 | `fastfetch`         | System info for screenshots      |
