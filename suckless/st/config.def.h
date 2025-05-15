@@ -1,18 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
 /*
- * appearance
- *
- * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
- */
-static char *font = "SauceCodePro Nerd Font Mono:pixelsize=18:antialias=true:autohint=true";
-/* Spare fonts */
-static char *font2[] = {
-	"SauceCodePro Nerd Font Mono:pixelsize=16:antialias=true:autohint=true", 
-	"Hack Nerd Font Mono:pixelsize=18:antialias=true:autohint=true",
-};
-
-static int borderpx = 2;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -30,10 +18,6 @@ char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /* identification sequence returned in DA and DECID */
 char *vtiden = "\033[?6c";
-
-/* Kerning / character bounding-box multipliers */
-static float cwscale = 1.0;
-static float chscale = 1.0;
 
 /*
  * word delimiter string
@@ -74,6 +58,18 @@ static unsigned int blinktimeout = 800;
 static unsigned int cursorthickness = 2;
 
 /*
+ * 1: render most of the lines/blocks characters without using the font for
+ *    perfect alignment between cells (U2500 - U259F except dashes/diagonals).
+ *    Bold affects lines thickness if boxdraw_bold is not 0. Italic is ignored.
+ * 0: disable (render all U25XX glyphs normally from the font).
+ */
+const int boxdraw = 0;
+const int boxdraw_bold = 0;
+
+/* braille (U28XX):  1: render as adjacent "pixels",  0: use font */
+const int boxdraw_braille = 0;
+
+/*
  * bell volume. It must be a value between -100 and 100. Use 0 for disabling
  * it
  */
@@ -99,49 +95,59 @@ char *termname = "st-256color";
  */
 unsigned int tabspaces = 8;
 
-/* bg opacity */
-float alpha = 0.8;
-
 /* Terminal colors (16 first used in escape sequence) */
-static const char *colorname[] = {
+const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	[0] = "#2f363d", /* black (invisibles) */
+	[1] = "#ff7b72", /* red */
+	[2] = "#3fb950", /* green */
+	[3] = "#d29922", /* yellow */
+	[4] = "#539bf5", /* blue */
+	[5] = "#bc8cff", /* magenta */
+	[6] = "#39c5cf", /* cyan */
+	[7] = "#d0d7de", /* white (foreground) */
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	[8] = "#8b949e",  /* black (comment) */
+	[9] = "#ff9790",  /* red */
+	[10] = "#6af28c", /* green */
+	[11] = "#e3b341", /* yellow */
+	[12] = "#79c0ff", /* blue */
+	[13] = "#d2a8ff", /* magenta */
+	[14] = "#56d4dd", /* cyan */
+	[15] = "#ffffff", /* white */
 
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#cccccc",
-	"#555555",
-	"gray90", /* default foreground colour */
-	"black", /* default background colour */
+	/* special colors */
+	[256] = "#0d1117", /* background */
+	[257] = "#d0d7de", /* foreground */
+	[258] = "#58a6ff", /* cursor */
 };
 
+/* Default colors (colorname index) - DO NOT use static for these in st 0.9.2 */
+unsigned int defaultfg = 257;
+unsigned int defaultbg = 256;
+unsigned int defaultcs = 258;
+unsigned int defaultrcs = 258;
 
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 258;
-unsigned int defaultbg = 259;
-unsigned int defaultcs = 256;
-static unsigned int defaultrcs = 257;
+/* Terminal opacity */
+float alpha = 0.95; /* For st 0.9.2, use decimal alpha value */
+
+/* Font configuration */
+/* Note: newer st versions may handle font differently. Adjust as needed. */
+char *font = "SauceCodePro Nerd Font Mono:size=16:antialias=true:autohint=true";
+
+static char *font2[] = {
+    "FiraCode Nerd Font Mono:pixelsize=16:antialias=true:autohint=true",
+    "Symbols Nerd Font Mono:pixelsize=16:antialias=true:autohint=true",
+};
+
+/* Other settings */
+float cwscale = 1.0;
+float chscale = 1.1; /* Line height similar to your WezTerm */
+
+/* Border and spacing */
+int borderpx = 2;
+
 
 /*
  * Default shape of cursor
@@ -185,6 +191,8 @@ static uint forcemousemod = ShiftMask;
  */
 static MouseShortcut mshortcuts[] = {
 	/* mask                 button   function        argument       release */
+	{ ShiftMask,            Button4, kscrollup,      {.i = 1} },
+	{ ShiftMask,            Button5, kscrolldown,    {.i = 1} },
 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
@@ -210,6 +218,8 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+	{ ShiftMask,            XK_Page_Up,     kscrollup,      {.i = -1} },
+    { ShiftMask,            XK_Page_Down,   kscrolldown,    {.i = -1} },
 };
 
 /*
@@ -287,7 +297,7 @@ static Key key[] = {
 	{ XK_KP_Delete,     ControlMask,    "\033[3;5~",    +1,    0},
 	{ XK_KP_Delete,     ShiftMask,      "\033[2K",      -1,    0},
 	{ XK_KP_Delete,     ShiftMask,      "\033[3;2~",    +1,    0},
-	{ XK_KP_Delete,     XK_ANY_MOD,     "\033[P",       -1,    0},
+	{ XK_KP_Delete,     XK_ANY_MOD,     "\033[3~",       -1,    0},
 	{ XK_KP_Delete,     XK_ANY_MOD,     "\033[3~",      +1,    0},
 	{ XK_KP_Multiply,   XK_ANY_MOD,     "\033Oj",       +2,    0},
 	{ XK_KP_Add,        XK_ANY_MOD,     "\033Ok",       +2,    0},
@@ -355,7 +365,7 @@ static Key key[] = {
 	{ XK_Delete,        ControlMask,    "\033[3;5~",    +1,    0},
 	{ XK_Delete,        ShiftMask,      "\033[2K",      -1,    0},
 	{ XK_Delete,        ShiftMask,      "\033[3;2~",    +1,    0},
-	{ XK_Delete,        XK_ANY_MOD,     "\033[P",       -1,    0},
+	{ XK_Delete,        XK_ANY_MOD,     "\033[3~",       -1,    0},
 	{ XK_Delete,        XK_ANY_MOD,     "\033[3~",      +1,    0},
 	{ XK_BackSpace,     XK_NO_MOD,      "\177",          0,    0},
 	{ XK_BackSpace,     Mod1Mask,       "\033\177",      0,    0},
