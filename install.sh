@@ -63,7 +63,7 @@ trap cleanup EXIT
 # ============================================
 install_packages() {
     echo "Installing required packages..."
-    sudo apt-get install -y xorg xorg-dev xbacklight xbindkeys xvkbd xinput build-essential sxhkd network-manager-gnome pamixer thunar thunar-archive-plugin thunar-volman nala lxappearance dialog mtools avahi-daemon acpi acpid gvfs-backends xfce4-power-manager pavucontrol pamixer pulsemixer feh fonts-recommended fonts-font-awesome fonts-terminus exa flameshot qimgv rofi dunst libnotify-bin xdotool libnotify-dev firefox-esr suckless-tools redshift geany geany-plugin-addons geany-plugin-git-changebar geany-plugin-spellcheck geany-plugin-treebrowser geany-plugin-markdown geany-plugin-insertnum geany-plugin-lineoperations geany-plugin-automark pipewire-audio unzip ranger micro xdg-user-dirs-gtk tilix lightdm || echo "Warning: Package installation failed."
+    sudo apt-get install -y xorg xorg-dev xbacklight xbindkeys xvkbd xinput build-essential sxhkd network-manager-gnome pamixer thunar thunar-archive-plugin thunar-volman nala lxappearance dialog mtools avahi-daemon acpi acpid gvfs-backends xfce4-power-manager pavucontrol pamixer pulsemixer feh fonts-recommended fonts-font-awesome fonts-terminus exa flameshot qimgv rofi dunst libnotify-bin xdotool libnotify-dev firefox-esr suckless-tools redshift geany geany-plugin-addons geany-plugin-git-changebar geany-plugin-spellcheck geany-plugin-treebrowser geany-plugin-markdown geany-plugin-insertnum geany-plugin-lineoperations geany-plugin-automark pipewire-audio unzip ranger micro xdg-user-dirs-gtk tdrop gawk lightdm || echo "Warning: Package installation failed."
     echo "Package installation completed."
   } 
  

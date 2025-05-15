@@ -8,7 +8,7 @@ super + b
     
 # Launch Private Browser (Firefox Incognito Mode)
 super + shift + b
-	firefox -private-window
+	firefox-esr -private-window
 
 # Launch Rofi Application Menu
 super + space
@@ -16,10 +16,9 @@ super + space
    	
 # Launch Floating Quake Terminal (Tilix)
 super + shift + Return
-    tilix --quake
-
+    tdrop -a -w 60% -h 80% -x 20% -y 0 st
+    
 # help with shortcuts
-# tilix -e ~/.config/suckless/sxhkd/keyhelper.sh
 super + h
 	~/.config/suckless/scripts/help
 	
