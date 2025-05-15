@@ -63,7 +63,7 @@ trap cleanup EXIT
 # ============================================
 install_packages() {
     echo "Installing required packages..."
-    sudo apt-get install -y xorg xorg-dev xbacklight xbindkeys xvkbd xinput build-essential sxhkd network-manager-gnome pamixer thunar thunar-archive-plugin thunar-volman nala lxappearance dialog mtools avahi-daemon acpi acpid gvfs-backends xfce4-power-manager pavucontrol pamixer pulsemixer feh fonts-recommended fonts-font-awesome fonts-terminus exa flameshot qimgv rofi dunst libnotify-bin xdotool libnotify-dev firefox-esr suckless-tools redshift geany geany-plugin-addons geany-plugin-git-changebar geany-plugin-spellcheck geany-plugin-treebrowser geany-plugin-markdown geany-plugin-insertnum geany-plugin-lineoperations geany-plugin-automark pipewire-audio unzip ranger micro xdg-user-dirs-gtk tdrop gawk lightdm || echo "Warning: Package installation failed."
+    sudo apt-get install -y xorg xorg-dev xbacklight xbindkeys xvkbd xinput build-essential sxhkd network-manager-gnome pamixer thunar thunar-archive-plugin thunar-volman nala lxappearance dialog mtools avahi-daemon acpi acpid gvfs-backends xfce4-power-manager pavucontrol pamixer pulsemixer feh fonts-recommended fonts-font-awesome fonts-terminus exa flameshot qimgv rofi dunst libnotify-bin xdotool libnotify-dev firefox-esr suckless-tools redshift geany geany-plugin-addons geany-plugin-git-changebar geany-plugin-spellcheck geany-plugin-treebrowser geany-plugin-markdown geany-plugin-insertnum geany-plugin-lineoperations geany-plugin-automark pipewire-audio unzip ranger micro xdg-user-dirs-gtk gawk lightdm || echo "Warning: Package installation failed."
     echo "Package installation completed."
   } 
  
@@ -219,6 +219,30 @@ install_wezterm() {
     echo "Wezterm installation and configuration complete."
 }
 
+# ============================================
+# Configure tdrop
+# ============================================
+install_tdrop() {
+    if ! command_exists tdrop; then
+        echo "Installing tdrop..."
+        sudo apt-get install -y tdrop || { echo "Failed to install tdrop. Trying alternative method..."; }
+        
+        # Alternative installation method if apt fails
+        if ! command_exists tdrop; then
+            git clone https://github.com/noctuid/tdrop.git "$INSTALL_DIR/tdrop" || die "Failed to clone tdrop repository."
+            cd "$INSTALL_DIR/tdrop"
+            sudo make install || die "Failed to install tdrop from source."
+        fi
+    else
+        echo "Tdrop is already installed."
+    fi
+    
+    # Create basic tdrop configuration directory
+    mkdir -p "$HOME/.config/tdrop"
+    
+    echo "Tdrop installation complete."
+}
+
 
 # ============================================
 # Install Fonts
@@ -353,6 +377,7 @@ setup_dwm_config
 install_ftlabs_picom
 install_fastfetch
 install_wezterm
+install_tdrop
 install_fonts
 install_theming
 change_theming
