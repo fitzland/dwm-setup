@@ -62,15 +62,15 @@ get_butterscript() {
     # Create directory for downloaded scripts
     mkdir -p "$MAIN_TEMP_DIR/scripts"
     
-    echo "Fetching script: $script_path from butterscripts repository..."
+    echo "Fetching script: $script_path from butterscripts repository..." >&2
     
     # Explicitly check if the file already exists and remove it to avoid issues
     if [ -f "$temp_script" ]; then
         rm -f "$temp_script"
     fi
     
-    # Download the script with verbose output for debugging
-    wget -v -O "$temp_script" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path" 2>&1
+    # Download the script with output redirected to stderr
+    wget -q -O "$temp_script" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path" 2>&2
     local wget_status=$?
     
     # Check if the download was successful
@@ -93,7 +93,7 @@ get_butterscript() {
         return 1
     fi
     
-    # Print the absolute path to the script
+    # Print ONLY the absolute path to the script (no other output!)
     echo "$temp_script"
 }
 
@@ -101,44 +101,50 @@ run_butterscript() {
     local script_path="$1"
     local script_name=$(basename "$script_path" .sh)
     
-    echo "Preparing to run: $script_path"
+    echo "Preparing to run: $script_path" >&2
     
-    # Use command substitution to capture the output of get_butterscript
-    local script_file
-    script_file=$(get_butterscript "$script_path")
+    # Capture ONLY the path output
+    local script_file=$(get_butterscript "$script_path")
     local get_status=$?
+    
+    # Debug
+    echo "DEBUG: Script file path: '$script_file'" >&2
     
     # Explicitly check the return status and if the file exists
     if [ $get_status -ne 0 ] || [ -z "$script_file" ] || [ ! -f "$script_file" ]; then
-        echo "ERROR: Failed to obtain script: $script_path"
-        echo "get_butterscript status: $get_status"
-        echo "script_file: $script_file"
-        if [ ! -z "$script_file" ] && [ ! -f "$script_file" ]; then
-            echo "File does not exist: $script_file"
+        echo "ERROR: Failed to obtain script: $script_path" >&2
+        echo "get_butterscript status: $get_status" >&2
+        if [ -n "$script_file" ]; then
+            echo "Script file path: '$script_file'" >&2
+            if [ ! -f "$script_file" ]; then
+                echo "File does not exist: $script_file" >&2
+            fi
+        else
+            echo "No script file path returned" >&2
         fi
         return 1
     fi
     
-    echo "Successfully downloaded script to: $script_file"
+    echo "Successfully downloaded script to: $script_file" >&2
     
     # Create a temporary directory for the script to use
     local script_temp_dir="$MAIN_TEMP_DIR/${script_name}_workdir"
     mkdir -p "$script_temp_dir"
     
-    echo "Running script: $script_path"
-    echo "Script file: $script_file"
-    echo "Work directory: $script_temp_dir"
+    echo "Running script: $script_path" >&2
+    echo "Script file: $script_file" >&2
+    echo "Work directory: $script_temp_dir" >&2
     
     # Run the script with the environment variable
     SCRIPT_TEMP_DIR="$script_temp_dir" bash "$script_file"
     local run_status=$?
     
     if [ $run_status -ne 0 ]; then
-        echo "ERROR: Script execution failed with status: $run_status"
+        echo "ERROR: Script execution failed with status: $run_status" >&2
         return 1
     fi
     
-    echo "Script execution completed successfully."
+    echo "Script execution completed successfully." >&2
     return 0
 }
 
