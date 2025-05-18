@@ -11,14 +11,15 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 CLONED_DIR="$HOME/dwm-setup"
 CONFIG_DIR="$HOME/.config/suckless"
 INSTALL_DIR="$HOME/installation"
-GTK_THEME="https://github.com/vinceliuice/Orchis-theme.git"
-ICON_THEME="https://github.com/vinceliuice/Colloid-icon-theme.git"
 BUTTERSCRIPTS_REPO="https://github.com/drewgrif/butterscripts"
+
+# Create a unique base temporary directory for this run
+MAIN_TEMP_DIR="/tmp/justaguylinux_$(date +%s)_$$"
+mkdir -p "$MAIN_TEMP_DIR"
 
 command_exists() {
     command -v "$1" &>/dev/null
 }
-
 
 # ============================================
 # Error Handling
@@ -29,11 +30,34 @@ die() {
 }
 
 # ============================================
+# Temporary Directory Management
+# ============================================
+create_temp_dir() {
+    local name="$1"
+    local temp_dir="$MAIN_TEMP_DIR/$name"
+    mkdir -p "$temp_dir"
+    echo "$temp_dir"
+}
+
+# Clean up all temporary directories on exit (success or failure)
+cleanup() {
+    echo "Cleaning up temporary files..."
+    rm -rf "$MAIN_TEMP_DIR"
+    rm -rf "$INSTALL_DIR"
+    echo "Cleanup completed."
+}
+trap cleanup EXIT
+
+# ============================================
 # Script Fetching Functions
 # ============================================
 get_butterscript() {
     local script_path="$1"
-    local temp_script="/tmp/butterscript_$(basename "$script_path")"
+    local script_name=$(basename "$script_path")
+    local temp_script="$MAIN_TEMP_DIR/scripts/$script_name"
+    
+    # Create directory for downloaded scripts
+    mkdir -p "$MAIN_TEMP_DIR/scripts"
     
     echo "Fetching script: $script_path from butterscripts repository..."
     wget -q -O "$temp_script" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path" || die "Failed to download script: $script_path"
@@ -43,10 +67,13 @@ get_butterscript() {
 
 run_butterscript() {
     local script_path="$1"
+    local script_name=$(basename "$script_path" .sh)
     local script_file=$(get_butterscript "$script_path")
-    echo "Running script: $script_path"
-    bash "$script_file" || die "Failed to run script: $script_path"
-    rm -f "$script_file"
+    local script_temp_dir=$(create_temp_dir "$script_name")
+    
+    echo "Running script: $script_path with temp dir: $script_temp_dir"
+    # Pass the temporary directory as an environment variable
+    SCRIPT_TEMP_DIR="$script_temp_dir" bash "$script_file" || die "Failed to run script: $script_path"
 }
 
 # ============================================
@@ -66,18 +93,6 @@ read -p "Do you want to continue? (y/n) " confirm
 [[ ! "$confirm" =~ ^[Yy]$ ]] && die "Installation aborted."
 
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get clean
-
-# ============================================
-# Create Installation Directory
-# ============================================
-mkdir -p "$INSTALL_DIR" || die "Failed to create installation directory."
-
-# Cleanup installation directory on exit
-cleanup() {
-    rm -rf "$INSTALL_DIR"
-    echo "Installation directory removed."
-}
-trap cleanup EXIT
 
 
 # ============================================
