@@ -85,7 +85,7 @@ trap cleanup EXIT
 # ============================================
 install_packages() {
     echo "Installing required packages..."
-    sudo apt-get install -y xorg xorg-dev xbacklight xbindkeys xvkbd xinput build-essential sxhkd network-manager-gnome pamixer thunar thunar-archive-plugin thunar-volman nala lxappearance dialog mtools avahi-daemon acpi acpid gvfs-backends xfce4-power-manager pavucontrol pamixer pulsemixer feh fonts-recommended fonts-font-awesome fonts-terminus exa flameshot qimgv rofi dunst libnotify-bin xdotool libnotify-dev firefox-esr suckless-tools redshift geany geany-plugin-addons geany-plugin-git-changebar geany-plugin-spellcheck geany-plugin-treebrowser geany-plugin-markdown geany-plugin-insertnum geany-plugin-lineoperations geany-plugin-automark pipewire-audio unzip ranger micro xdg-user-dirs-gtk tilix lightdm || echo "Warning: Package installation failed."
+    sudo apt-get install -y xorg xorg-dev xbacklight xbindkeys xvkbd xinput build-essential sxhkd network-manager-gnome pamixer thunar thunar-archive-plugin thunar-volman nala lxappearance dialog mtools avahi-daemon acpi acpid gvfs-backends xfce4-power-manager pavucontrol pamixer pulsemixer feh fonts-recommended fonts-font-awesome fonts-terminus exa flameshot qimgv rofi dunst libnotify-bin xdotool libnotify-dev firefox-esr suckless-tools redshift pipewire-audio unzip micro xdg-user-dirs-gtk || echo "Warning: Package installation failed."
     echo "Package installation completed."
   } 
  
@@ -153,7 +153,7 @@ rm ./temp
 # ============================================
 setup_dwm_config() {
     mkdir -p "$CONFIG_DIR"
-    for dir in dwm st slstatus dunst fonts picom rofi scripts sxhkd wallpaper; do
+    for dir in dwm st slstatus dunst picom rofi scripts sxhkd wallpaper; do
         cp -r "$CLONED_DIR/suckless/$dir" "$CONFIG_DIR/" || echo "Warning: Failed to copy $dir."
     done
 
@@ -168,31 +168,21 @@ setup_dwm_config() {
 # Install ft-picom
 # ============================================
 install_ftlabs_picom() {
-	if command_exists picom; then
-        echo "Picom is already installed. Skipping installation."
-        return
-    fi
-	sudo apt-get install -y libconfig-dev libdbus-1-dev libegl-dev libev-dev libgl-dev libepoxy-dev libpcre2-dev libpixman-1-dev libx11-xcb-dev libxcb1-dev libxcb-composite0-dev libxcb-damage0-dev libxcb-dpms0-dev libxcb-glx0-dev libxcb-image0-dev libxcb-present-dev libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-util-dev libxcb-xfixes0-dev libxext-dev meson ninja-build uthash-dev
-	
-    git clone https://github.com/FT-Labs/picom "$INSTALL_DIR/picom" || die "Failed to clone Picom."
-    cd "$INSTALL_DIR/picom"
-    meson setup --buildtype=release build
-    ninja -C build
-    sudo ninja -C build install
+    run_butterscript "setup/install_picom.sh"
 }
 
 # ============================================
 # Install Fastfetch
 # ============================================
 install_fastfetch() {
-    run_butterscript "fastfetch/butterfetch.sh"
+    run_butterscript "fastfetch/install_fastfetch.sh"
 }
 
 # ============================================
 # Install Wezterm
 # ============================================
 install_wezterm() {
-    run_butterscript "wezterm/butterwez.sh"
+    run_butterscript "wezterm/install_wezterm.sh"
 }
 
 # ============================================
@@ -200,31 +190,7 @@ install_wezterm() {
 # ============================================
 install_fonts() {
     echo "Installing fonts..."
-
-    mkdir -p ~/.local/share/fonts
-
-    fonts=( "FiraCode" "Hack" "JetBrainsMono" "RobotoMono" "SourceCodePro" "UbuntuMono" )
-
-    for font in "${fonts[@]}"; do
-        if ls ~/.local/share/fonts/$font/*.ttf &>/dev/null; then
-            echo "Font $font is already installed. Skipping."
-        else
-            echo "Installing font: $font"
-            wget -q "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/$font.zip" -P /tmp || {
-                echo "Warning: Error downloading font $font."
-                continue
-            }
-            unzip -q /tmp/$font.zip -d ~/.local/share/fonts/$font/ || {
-                echo "Warning: Error extracting font $font."
-                continue
-            }
-            rm /tmp/$font.zip
-        fi
-    done
-    
-    fc-cache -f || echo "Warning: Error rebuilding font cache."
-
-    echo "Font installation completed."
+    run_butterscript "theming/install_nerdfonts.sh"
 }
 
 
@@ -232,15 +198,14 @@ install_fonts() {
 # Install GTK Theme & Icons
 # ============================================
 install_theming() {
-    run_butterscript "theming/butterorchis.sh"
+    run_butterscript "theming/install_theme.sh"
 }
 
-
-# ========================================
-# GTK Theme Settings
-# ========================================
-change_theming() {
-    run_butterscript "theming/buttergtk.sh"
+# ============================================
+# Install Login Manager
+# ============================================
+install_displaymanager() {
+    run_butterscript "system/install_lightdm.sh"
 }
 
 # ============================================
@@ -268,7 +233,7 @@ install_fastfetch
 install_wezterm
 install_fonts
 install_theming
-change_theming
+install_displaymanager
 replace_bashrc
 
 echo "All installations completed successfully!"
