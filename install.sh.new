@@ -61,38 +61,55 @@ get_butterscript() {
     
     echo "Fetching script: $script_path from butterscripts repository..."
     
-    # Use wget with more verbose output on error
-    if ! wget -q --spider "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path"; then
-        echo "ERROR: Script does not exist at https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path"
+    # Download the script
+    wget -q -O "$temp_script" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path"
+    if [ $? -ne 0 ]; then
+        echo "ERROR: Failed to download script: $script_path" >&2
         return 1
     fi
     
-    if ! wget -q -O "$temp_script" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path"; then
-        echo "ERROR: Failed to download script: $script_path"
-        echo "Attempted to download from: https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path"
-        echo "Check your internet connection and the script path."
-        return 1
-    fi
+    # Fix any potential line ending issues (CRLF to LF conversion)
+    sed -i 's/\r$//' "$temp_script" 2>/dev/null
     
+    # Make the script executable
     chmod +x "$temp_script"
-    echo "$temp_script"
+    if [ $? -ne 0 ]; then
+        echo "ERROR: Failed to make script executable: $temp_script" >&2
+        return 1
+    fi
+    
+    # Verify the file exists and is executable before returning its path
+    if [ -f "$temp_script" ] && [ -x "$temp_script" ]; then
+        echo "$temp_script"
+    else
+        echo "ERROR: Script does not exist or is not executable: $temp_script" >&2
+        return 1
+    fi
 }
 
 run_butterscript() {
     local script_path="$1"
     local script_name=$(basename "$script_path" .sh)
+    
+    # Download the script to the scripts subdirectory
     local script_file=$(get_butterscript "$script_path")
     
     # Check if get_butterscript was successful
-    if [ -z "$script_file" ]; then
-        die "Failed to download script: $script_path"
+    if [ -z "$script_file" ] || [ ! -f "$script_file" ]; then
+        echo "ERROR: Failed to download script: $script_path"
+        return 1
     fi
     
+    # Create a temporary directory for the script to use
     local script_temp_dir=$(create_temp_dir "$script_name")
     
     echo "Running script: $script_path with temp dir: $script_temp_dir"
-    # Pass the temporary directory as an environment variable
-    SCRIPT_TEMP_DIR="$script_temp_dir" bash "$script_file" || die "Failed to run script: $script_path"
+    
+    # Pass the temporary directory as an environment variable and execute the script
+    SCRIPT_TEMP_DIR="$script_temp_dir" bash "$script_file" || {
+        echo "ERROR: Failed to run script: $script_file"
+        return 1
+    }
 }
 
 # ============================================
