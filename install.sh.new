@@ -51,6 +51,9 @@ trap cleanup EXIT
 # ============================================
 # Script Fetching Functions
 # ============================================
+# ============================================
+# Script Fetching Functions - Fixed Version
+# ============================================
 get_butterscript() {
     local script_path="$1"
     local script_name=$(basename "$script_path")
@@ -61,14 +64,26 @@ get_butterscript() {
     
     echo "Fetching script: $script_path from butterscripts repository..."
     
-    # Download the script
-    wget -q -O "$temp_script" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path"
-    if [ $? -ne 0 ]; then
-        echo "ERROR: Failed to download script: $script_path" >&2
+    # Explicitly check if the file already exists and remove it to avoid issues
+    if [ -f "$temp_script" ]; then
+        rm -f "$temp_script"
+    fi
+    
+    # Download the script with verbose output for debugging
+    wget -v -O "$temp_script" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$script_path" 2>&1
+    local wget_status=$?
+    
+    # Check if the download was successful
+    if [ $wget_status -ne 0 ] || [ ! -f "$temp_script" ] || [ ! -s "$temp_script" ]; then
+        echo "ERROR: Failed to download script: $script_path (wget status: $wget_status)" >&2
+        if [ -f "$temp_script" ]; then
+            echo "Downloaded file exists but may be empty or corrupted." >&2
+            rm -f "$temp_script"
+        fi
         return 1
     fi
     
-    # Fix any potential line ending issues (CRLF to LF conversion)
+    # Fix any potential line ending issues
     sed -i 's/\r$//' "$temp_script" 2>/dev/null
     
     # Make the script executable
@@ -78,38 +93,53 @@ get_butterscript() {
         return 1
     fi
     
-    # Verify the file exists and is executable before returning its path
-    if [ -f "$temp_script" ] && [ -x "$temp_script" ]; then
-        echo "$temp_script"
-    else
-        echo "ERROR: Script does not exist or is not executable: $temp_script" >&2
-        return 1
-    fi
+    # Print the absolute path to the script
+    echo "$temp_script"
 }
 
 run_butterscript() {
     local script_path="$1"
     local script_name=$(basename "$script_path" .sh)
     
-    # Download the script to the scripts subdirectory
-    local script_file=$(get_butterscript "$script_path")
+    echo "Preparing to run: $script_path"
     
-    # Check if get_butterscript was successful
-    if [ -z "$script_file" ] || [ ! -f "$script_file" ]; then
-        echo "ERROR: Failed to download script: $script_path"
+    # Use command substitution to capture the output of get_butterscript
+    local script_file
+    script_file=$(get_butterscript "$script_path")
+    local get_status=$?
+    
+    # Explicitly check the return status and if the file exists
+    if [ $get_status -ne 0 ] || [ -z "$script_file" ] || [ ! -f "$script_file" ]; then
+        echo "ERROR: Failed to obtain script: $script_path"
+        echo "get_butterscript status: $get_status"
+        echo "script_file: $script_file"
+        if [ ! -z "$script_file" ] && [ ! -f "$script_file" ]; then
+            echo "File does not exist: $script_file"
+        fi
         return 1
     fi
     
+    echo "Successfully downloaded script to: $script_file"
+    
     # Create a temporary directory for the script to use
-    local script_temp_dir=$(create_temp_dir "$script_name")
+    local script_temp_dir="$MAIN_TEMP_DIR/${script_name}_workdir"
+    mkdir -p "$script_temp_dir"
     
-    echo "Running script: $script_path with temp dir: $script_temp_dir"
+    echo "Running script: $script_path"
+    echo "Script file: $script_file"
+    echo "Work directory: $script_temp_dir"
     
-    # Pass the temporary directory as an environment variable and execute the script
-    SCRIPT_TEMP_DIR="$script_temp_dir" bash "$script_file" || {
-        echo "ERROR: Failed to run script: $script_file"
+    # Run the script with the environment variable
+    SCRIPT_TEMP_DIR="$script_temp_dir" bash "$script_file"
+    local run_status=$?
+    
+    if [ $run_status -ne 0 ]; then
+        echo "ERROR: Script execution failed with status: $run_status"
         return 1
-    }
+    fi
+    
+    echo "Script execution completed successfully."
+    return 0
 }
 
 # ============================================
