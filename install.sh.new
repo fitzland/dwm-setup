@@ -172,13 +172,6 @@ install_ftlabs_picom() {
 }
 
 # ============================================
-# Install Fastfetch
-# ============================================
-install_fastfetch() {
-    run_butterscript "fastfetch/install_fastfetch.sh"
-}
-
-# ============================================
 # Install Wezterm
 # ============================================
 install_wezterm() {
@@ -192,7 +185,6 @@ install_fonts() {
     echo "Installing fonts..."
     run_butterscript "theming/install_nerdfonts.sh"
 }
-
 
 # ============================================
 # Install GTK Theme & Icons
@@ -220,6 +212,27 @@ replace_bashrc() {
 }
 
 # ============================================
+# Install Printer Support
+# ============================================
+install_printersupport() {
+    run_butterscript "system/install_printer_support.sh"
+}
+
+# ============================================
+# Install Bluetooth Support
+# ============================================
+install_bluetoothsupport() {
+    run_butterscript "system/install_bluetooth.sh"
+}
+
+# ============================================
+# Install Optional Packages
+# ============================================
+install_optionals() {
+    run_butterscript "setup/optional_tools.sh"
+}
+
+# ============================================
 # Main Execution
 # ============================================
 install_packages
@@ -235,5 +248,8 @@ install_fonts
 install_theming
 install_displaymanager
 replace_bashrc
+install_printersupport
+install_bluetoothsupport
+install_optionals
 
 echo "All installations completed successfully!"
