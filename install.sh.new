@@ -242,7 +242,6 @@ setup_user_dirs
 check_dwm
 setup_dwm_config
 install_ftlabs_picom
-install_fastfetch
 install_wezterm
 install_fonts
 install_theming
