@@ -302,20 +302,6 @@ replace_bashrc() {
 }
 
 # ============================================
-# Install Printer Support
-# ============================================
-install_printersupport() {
-    run_butterscript "system/install_printer_support.sh"
-}
-
-# ============================================
-# Install Bluetooth Support
-# ============================================
-install_bluetoothsupport() {
-    run_butterscript "system/install_bluetooth.sh"
-}
-
-# ============================================
 # Install Optional Packages
 # ============================================
 install_optionals() {
@@ -338,8 +324,6 @@ install_fonts
 install_theming
 install_displaymanager
 replace_bashrc
-install_printersupport
-install_bluetoothsupport
 install_optionals
 
 echo "All installations completed successfully!"
