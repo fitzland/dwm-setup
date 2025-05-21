@@ -37,11 +37,10 @@ This assumes a fresh Debian or Debian-based install with `sudo` access.
 | `wezterm`           | Main terminal emulator           |
 | `st`                | Minimally patched for scratchpad |
 | `firefox-esr`       | Default web browser              |
-| `geany` + `plugins `| Lightweight IDE                  |
 | `fastfetch`         | System info for screenshots      |
 | `nala`              | Better apt frontend              |
 | `pipewire`          | Audio handling                   |
-| `flameshot`,        | Screenshot tools                 |
+| `flameshot`         | Screenshot tools                 |
 | `micro`             | Terminal text editor             |
 | `redshift`          | Night light                      |
 | `qimgv`             | Lightweight image viewer         |
