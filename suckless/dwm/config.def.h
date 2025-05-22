@@ -195,6 +195,7 @@ static const Key keys[] = {
 	{ MODKEY|Mod1Mask,			    XK_Tab,      incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ShiftMask,				XK_r,      quit,           {1} }, 
+    { MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY,            			XK_v,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			XK_r,  	   togglescratch,  {.ui = 1 } },
 };
