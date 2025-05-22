@@ -2,7 +2,7 @@
 
 # ============================================
 # JustAGuy Linux - DWM Automated Setup Script
-# https://github.com/drewgrif
+# https://github.com/drewgrif/dwm-setup
 # ============================================
 
 LOG_FILE="$HOME/justaguylinux-install.log"
