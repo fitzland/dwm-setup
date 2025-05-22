@@ -238,30 +238,6 @@ install_ftlabs_picom() {
 }
 
 # ============================================
-# Install tdrop (dropdown terminal)
-# ============================================
-install_tdrop() {
-    echo "Installing tdrop (dropdown terminal tool)..."
-    local tdrop_temp_dir=$(create_temp_dir "tdrop")
-    cd "$tdrop_temp_dir" || die "Failed to enter tdrop temporary directory."
-    
-    # Clone the tdrop repository
-    git clone https://github.com/noctuid/tdrop.git || die "Failed to clone tdrop repository."
-    cd tdrop || die "Failed to enter tdrop directory."
-    
-    # Install tdrop
-    sudo make install || die "Failed to install tdrop."
-    
-    # Create tdrop config directory if it doesn't exist
-    mkdir -p "$HOME/.config/tdrop"
-    
-    echo "tdrop installed successfully!"
-    
-    # Return to the original directory
-    cd "$OLDPWD" || die "Failed to return to original directory."
-}
-
-# ============================================
 # Install Wezterm
 # ============================================
 install_wezterm() {
@@ -318,7 +294,6 @@ setup_user_dirs
 check_dwm
 setup_dwm_config
 install_ftlabs_picom
-install_tdrop
 install_wezterm
 install_fonts
 install_theming
