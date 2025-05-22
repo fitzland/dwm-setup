@@ -157,7 +157,7 @@ install_packages() {
  
 install_reqs() {
     echo "Updating package lists and installing required dependencies..."
-    sudo apt-get install -y cmake meson ninja-build curl pkg-config gawk || { echo "Package installation failed."; exit 1; }
+    sudo apt-get install -y cmake meson ninja-build curl pkg-config || { echo "Package installation failed."; exit 1; }
 }
 
 # ============================================
