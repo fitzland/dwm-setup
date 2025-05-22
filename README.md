@@ -157,6 +157,7 @@ These are the layouts included in this build, in the exact order from `config.de
 | focusadjacenttag       | Navigation              |
 | focusedontop           | Floating windows        |
 | focusonnetactive       | Compatibility           |
+| fullscreen             | Window management       |
 | movestack              | Window management       |
 | pertag                 | Layout memory           |
 | preserveonrestart      | Session persistence     |
@@ -239,7 +240,18 @@ Improves compatibility with external programs and scripts (e.g., notification po
 
 ---
 
-### 8. `dwm-movestack-20211115-a786211.diff`
+### 8. `dwm-fullscreen-6.2.diff`
+**What it does:**  
+Adds the ability for windows to be **faked fullscreen**, which is basically just a borderless, statusbar-less window that fits the entire screen.
+
+**Why it's useful:**  
+Some applications (like browsers, video players, and games) expect to be able to go fullscreen. This patch allows DWM to handle fullscreen requests properly while maintaining window management control. Unlike true fullscreen modes that bypass the window manager entirely, this keeps DWM in control while giving applications the fullscreen experience they expect.
+
+**Usage:** Press `Super + Shift + F` to toggle fullscreen mode for the focused window.
+
+---
+
+### 9. `dwm-movestack-20211115-a786211.diff`
 **What it does:**  
 Allows you to **move windows up/down the stack**.
 
@@ -248,7 +260,7 @@ Essential for organizing windows in the master-stack layout, letting you reorder
 
 ---
 
-### 9. `dwm-pertag-20200914-61bb8b2.diff`
+### 10. `dwm-pertag-20200914-61bb8b2.diff`
 **What it does:**  
 Each tag remembers its own **layout, master count, and gaps settings**.
 
@@ -257,7 +269,7 @@ This is one of the most **essential DWM patches** if you use multiple tags. It a
 
 ---
 
-### 10. `dwm-preserveonrestart-6.3.diff`
+### 11. `dwm-preserveonrestart-6.3.diff`
 **What it does:**  
 Preserves window positions when restarting DWM.
 
@@ -266,7 +278,7 @@ Critical if you like to restart DWM to reload config changes, keeping windows in
 
 ---
 
-### 11. `dwm-restartsig-20180523-6.2.diff`
+### 12. `dwm-restartsig-20180523-6.2.diff`
 **What it does:**  
 Adds a **restart signal handler** so you can restart DWM without logging out.
 
@@ -275,7 +287,7 @@ Allows easy config reloads and minor changes without logging out, pairing well w
 
 ---
 
-### 12. `dwm-scratchpads-20200414-728d397b.diff`
+### 13. `dwm-scratchpads-20200414-728d397b.diff`
 **What it does:**  
 Implements **scratchpads**, allowing you to spawn hidden windows (like a drop-down terminal).
 
@@ -284,7 +296,7 @@ A classic feature from workflows like i3 and bspwm. Scratchpads are great for te
 
 ---
 
-### 13. `dwm-status2d-systray-6.4.diff`
+### 14. `dwm-status2d-systray-6.4.diff`
 **What it does:**  
 Adds support for **color-embedded status text and a systray** in DWM’s status bar.
 
@@ -295,7 +307,7 @@ Combines two essential features:
 
 ---
 
-### 14. `dwm-togglefloatingcenter-20210806-138b405f.diff`
+### 15. `dwm-togglefloatingcenter-20210806-138b405f.diff`
 **What it does:**  
 Toggles a window between floating and tiled **while centering it if floating**.
 
@@ -304,7 +316,7 @@ Combines two useful actions into one — not only toggling float, but also ensur
 
 ---
 
-### 15. `dwm-vanitygaps-6.2.diff`
+### 16. `dwm-vanitygaps-6.2.diff`
 **What it does:**  
 Adds support for **customizable outer and inner gaps** between windows.
 
@@ -313,7 +325,7 @@ Essential for those who like cleaner layouts with space between windows. Especia
 
 ---
 
-### 16. `dwm-windowfollow-20221002-69d5652.diff`
+### 17. `dwm-windowfollow-20221002-69d5652.diff`
 **What it does:**  
 Makes it so that when you move a window to another tag, DWM will **follow you to that tag**.
 
