@@ -13,11 +13,7 @@ super + shift + b
 # Launch Rofi Application Menu
 super + space
    	rofi -show drun -modi drun -line-padding 4 -hide-scrollbar -show-icons -theme ~/.config/suckless/rofi/config.rasi
-   	
-# Launch Floating Quake-like Terminal (st)
-super + shift + Return
-    tdrop -a -w 60% -h 80% -x 20% -y 0 st
-    
+   	 
 # help with shortcuts
 super + h
 	~/.config/suckless/scripts/help

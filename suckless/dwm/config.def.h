@@ -36,11 +36,13 @@ typedef struct {
 
 const char *spcmd1[] = {"st", "-n", "spterm1", "-g", "100x34", "-e", "pulsemixer", NULL };
 const char *spcmd2[] = {"st", "-n", "spterm2", "-g", "100x34", "-e", "ranger", NULL };
+const char *spcmd3[] = {"st", "-n", "spterm3", "-g", "100x34", NULL };
 
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm1",      spcmd1},
 	{"spterm2",      spcmd2},
+  {"spterm3",      spcmd3},
 };
 
 static const char *const autostart[] = {
@@ -70,8 +72,9 @@ static const Rule rules[] = {
 	{ "Tilix", 				"tilix", 	NULL, 		0, 				1, 				1, 			-1 },
 	{ "Thunar",  			NULL,       NULL,       0,       		0,           	1,			-1 },
     { "st",           NULL,       NULL,       0,      1,        1,      -1 },
-	{ NULL,		  "spterm1",	NULL,		SPTAG(0),  		1,    	-1 },
-	{ NULL,		  "spterm2",	NULL,		SPTAG(1),  		1,		-1 },
+	{ NULL,		  "spterm1",	NULL,		SPTAG(0),  		1,    1,    	-1 },
+	{ NULL,		  "spterm2",	NULL,		SPTAG(1),  		1,		1,      -1 },
+  { NULL,		  "spterm3",	NULL,		SPTAG(2),  		1,		0,      -1 },
 };
 
 /* window following */
@@ -198,6 +201,7 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 	{ MODKEY,            			XK_v,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			XK_r,  	   togglescratch,  {.ui = 1 } },
+  { MODKEY|ShiftMask,       XK_Return, togglescratch,  {.ui = 2 } },
 };
 
 /* button definitions */
