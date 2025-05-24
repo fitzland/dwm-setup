@@ -1,5 +1,7 @@
 # 🧱 dwm-setup
 
+![Made for Debian](https://img.shields.io/badge/Made%20for-Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
+
 A minimal but powerful DWM setup script for Debian-based systems.  
 Includes custom patches, layout enhancements, and smart keybindings — ready to roll out of the box.
 
@@ -11,6 +13,7 @@ Includes custom patches, layout enhancements, and smart keybindings — ready to
 
 ## 🚀 Installation
 
+### Quick Install (Debian/Ubuntu)
 ```bash
 git clone https://github.com/drewgrif/dwm-setup.git
 cd dwm-setup
@@ -18,7 +21,83 @@ chmod +x install.sh
 ./install.sh
 ```
 
-This assumes a fresh Debian or Debian-based install with `sudo` access.
+### Installation Options
+
+The installer now supports various options for different use cases:
+
+```bash
+./install.sh [OPTIONS]
+
+Options:
+  --only-config       Only copy config files (perfect for non-Debian distros)
+  --skip-packages     Skip apt package installation
+  --skip-themes       Skip theme, icon, and font installations
+  --skip-butterscripts Skip all external script installations
+  --dry-run          Show what would be done without making changes
+  --help             Show usage information
+```
+
+### Distribution-Agnostic Installation
+
+<details>
+<summary><strong>⚠️ UNSUPPORTED: Instructions for other distributions (click to expand)</strong></summary>
+
+**IMPORTANT:** These instructions are provided as-is for advanced users. Non-Debian distributions are **NOT officially supported**. Package names and availability may vary. Use at your own risk.
+
+**Arch Linux:**
+```bash
+# Install dependencies (package names may differ)
+sudo pacman -S base-devel xorg-server xorg-xinit sxhkd rofi dunst picom \
+  thunar xorg-xbacklight pamixer pavucontrol feh flameshot firefox \
+  network-manager-applet xfce4-power-manager ttf-font-awesome
+
+# Copy configuration files
+./install.sh --only-config
+
+# Compile and install dwm, slstatus, st manually
+cd ~/.config/suckless/dwm && sudo make clean install
+cd ~/.config/suckless/slstatus && sudo make clean install
+cd ~/.config/suckless/st && sudo make clean install
+```
+
+**Fedora:**
+```bash
+# Install dependencies (package names may differ)
+sudo dnf groupinstall "Development Tools" "X Software Development"
+sudo dnf install sxhkd rofi dunst picom thunar xbacklight pamixer \
+  pavucontrol feh flameshot firefox network-manager-applet \
+  xfce4-power-manager fontawesome-fonts
+
+# Copy configuration files
+./install.sh --only-config
+
+# Compile and install manually
+cd ~/.config/suckless/dwm && sudo make clean install
+cd ~/.config/suckless/slstatus && sudo make clean install
+cd ~/.config/suckless/st && sudo make clean install
+```
+
+**Note:** DWM requires compilation from source. The `--only-config` option copies the source files but does not compile them on non-Debian systems.
+
+</details>
+
+### Advanced Usage Examples
+
+```bash
+# Preview what will be installed
+./install.sh --dry-run
+
+# Update only configuration files
+./install.sh --only-config
+
+# Skip package installation if already installed
+./install.sh --skip-packages
+
+# Install without themes and fonts
+./install.sh --skip-themes
+```
+
+**Note:** The script can be run from any location - it automatically detects its directory.
 
 ---
 
