@@ -13,7 +13,7 @@ Includes custom patches, layout enhancements, and smart keybindings — ready to
 
 ## 🚀 Installation
 
-### Quick Install (Debian/Ubuntu)
+### Quick Install
 ```bash
 git clone https://github.com/drewgrif/dwm-setup.git
 cd dwm-setup
