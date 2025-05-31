@@ -304,7 +304,6 @@ install_utility_packages() {
         nala \
         micro \
         xdg-user-dirs-gtk \
-        redshift \
         || { echo "ERROR: Utility package installation failed."; return 1; }
 }
 
