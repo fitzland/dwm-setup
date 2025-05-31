@@ -102,9 +102,6 @@ trap cleanup EXIT
 # ============================================
 # Script Fetching Functions
 # ============================================
-# ============================================
-# Script Fetching Functions - Fixed Version
-# ============================================
 get_butterscript() {
     local script_path="$1"
     local script_name=$(basename "$script_path")
@@ -185,8 +182,6 @@ GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-MAGENTA='\033[0;35m'
 NC='\033[0m' # No Color
 
 
@@ -353,8 +348,7 @@ install_packages() {
     install_font_packages || echo "Warning: Some font packages failed to install"
     
     echo "Package installation completed."
-  } 
- 
+}
 install_reqs() {
     if [ "$SKIP_PACKAGES" = true ] || [ "$ONLY_CONFIG" = true ]; then
         echo "Skipping build dependencies installation..."
