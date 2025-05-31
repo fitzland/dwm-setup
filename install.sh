@@ -189,45 +189,6 @@ BLUE='\033[0;34m'
 MAGENTA='\033[0;35m'
 NC='\033[0m' # No Color
 
-# ============================================
-# Progress Indicator Functions
-# ============================================
-show_progress() {
-    local current=$1
-    local total=$2
-    local operation="$3"
-    local percentage=$((current * 100 / total))
-    local filled=$((percentage / 5))
-    local empty=$((20 - filled))
-    
-    local bar=""
-    for ((i=0; i<filled; i++)); do bar+="#"; done
-    for ((i=0; i<empty; i++)); do bar+=" "; done
-    
-    printf "\r${CYAN}[${bar}] ${percentage}%% ${NC}${operation}"
-}
-
-spinner() {
-    local pid=$1
-    local message="$2"
-    local spinner_chars="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
-    local i=0
-    
-    printf "${CYAN}${message}${NC}"
-    while kill -0 $pid 2>/dev/null; do
-        printf "\r${CYAN}${message} ${spinner_chars:$i:1}${NC}"
-        i=$(( (i+1) % ${#spinner_chars} ))
-        sleep 0.1
-    done
-    printf "\r${GREEN}${message} ✓${NC}\n"
-}
-
-log_step() {
-    local step=$1
-    local total=$2
-    local message="$3"
-    echo -e "${BLUE}[${step}/${total}]${NC} ${message}"
-}
 
 # ============================================
 # Confirm User Intention
@@ -283,115 +244,90 @@ fi
 # Install Required Packages
 # ============================================
 install_core_packages() {
-    local packages=(xorg xorg-dev xbacklight xbindkeys xvkbd xinput build-essential sxhkd xdotool libnotify-bin libnotify-dev)
-    echo -e "${BLUE}Installing core window manager packages (${#packages[@]} packages)...${NC}"
-    
-    if [ "$DRY_RUN" = true ]; then
-        for i in "${!packages[@]}"; do
-            show_progress $((i+1)) ${#packages[@]} "Would install ${packages[$i]}"
-            sleep 0.1
-        done
-        echo
-        return
-    fi
-    
-    sudo apt-get install -y "${packages[@]}" || { echo "ERROR: Core package installation failed."; return 1; }
+    echo "Installing core window manager packages..."
+    sudo apt-get install -y \
+        xorg \
+        xorg-dev \
+        xbacklight \
+        xbindkeys \
+        xvkbd \
+        xinput \
+        build-essential \
+        sxhkd \
+        xdotool \
+        libnotify-bin \
+        libnotify-dev \
+        || { echo "ERROR: Core package installation failed."; return 1; }
 }
 
 install_ui_packages() {
-    local packages=(rofi dunst feh lxappearance network-manager-gnome)
-    echo -e "${BLUE}Installing UI components (${#packages[@]} packages)...${NC}"
-    
-    if [ "$DRY_RUN" = true ]; then
-        for i in "${!packages[@]}"; do
-            show_progress $((i+1)) ${#packages[@]} "Would install ${packages[$i]}"
-            sleep 0.1
-        done
-        echo
-        return
-    fi
-    
-    sudo apt-get install -y "${packages[@]}" || { echo "ERROR: UI package installation failed."; return 1; }
+    echo "Installing UI components..."
+    sudo apt-get install -y \
+        rofi \
+        dunst \
+        feh \
+        lxappearance \
+        network-manager-gnome \
+        || { echo "ERROR: UI package installation failed."; return 1; }
 }
 
 install_file_manager_packages() {
-    local packages=(thunar thunar-archive-plugin thunar-volman gvfs-backends dialog mtools smbclient cifs-utils unzip)
-    echo -e "${BLUE}Installing file management packages (${#packages[@]} packages)...${NC}"
-    
-    if [ "$DRY_RUN" = true ]; then
-        for i in "${!packages[@]}"; do
-            show_progress $((i+1)) ${#packages[@]} "Would install ${packages[$i]}"
-            sleep 0.1
-        done
-        echo
-        return
-    fi
-    
-    sudo apt-get install -y "${packages[@]}" || { echo "ERROR: File manager package installation failed."; return 1; }
+    echo "Installing file management packages..."
+    sudo apt-get install -y \
+        thunar \
+        thunar-archive-plugin \
+        thunar-volman \
+        gvfs-backends \
+        dialog \
+        mtools \
+        smbclient \
+        cifs-utils \
+        unzip \
+        || { echo "ERROR: File manager package installation failed."; return 1; }
 }
 
 install_audio_packages() {
-    local packages=(pavucontrol pulsemixer pamixer pipewire-audio)
-    echo -e "${BLUE}Installing audio packages (${#packages[@]} packages)...${NC}"
-    
-    if [ "$DRY_RUN" = true ]; then
-        for i in "${!packages[@]}"; do
-            show_progress $((i+1)) ${#packages[@]} "Would install ${packages[$i]}"
-            sleep 0.1
-        done
-        echo
-        return
-    fi
-    
-    sudo apt-get install -y "${packages[@]}" || { echo "ERROR: Audio package installation failed."; return 1; }
+    echo "Installing audio packages..."
+    sudo apt-get install -y \
+        pavucontrol \
+        pulsemixer \
+        pamixer \
+        pipewire-audio \
+        || { echo "ERROR: Audio package installation failed."; return 1; }
 }
 
 install_utility_packages() {
-    local packages=(avahi-daemon acpi acpid xfce4-power-manager flameshot qimgv firefox-esr nala micro xdg-user-dirs-gtk redshift)
-    echo -e "${BLUE}Installing utility packages (${#packages[@]} packages)...${NC}"
-    
-    if [ "$DRY_RUN" = true ]; then
-        for i in "${!packages[@]}"; do
-            show_progress $((i+1)) ${#packages[@]} "Would install ${packages[$i]}"
-            sleep 0.1
-        done
-        echo
-        return
-    fi
-    
-    sudo apt-get install -y "${packages[@]}" || { echo "ERROR: Utility package installation failed."; return 1; }
+    echo "Installing utility packages..."
+    sudo apt-get install -y \
+        avahi-daemon \
+        acpi \
+        acpid \
+        xfce4-power-manager \
+        flameshot \
+        qimgv \
+        firefox-esr \
+        nala \
+        micro \
+        xdg-user-dirs-gtk \
+        redshift \
+        || { echo "ERROR: Utility package installation failed."; return 1; }
 }
 
 install_terminal_packages() {
-    local packages=(suckless-tools exa)
-    echo -e "${BLUE}Installing terminal and shell utilities (${#packages[@]} packages)...${NC}"
-    
-    if [ "$DRY_RUN" = true ]; then
-        for i in "${!packages[@]}"; do
-            show_progress $((i+1)) ${#packages[@]} "Would install ${packages[$i]}"
-            sleep 0.1
-        done
-        echo
-        return
-    fi
-    
-    sudo apt-get install -y "${packages[@]}" || { echo "ERROR: Terminal package installation failed."; return 1; }
+    echo "Installing terminal and shell utilities..."
+    sudo apt-get install -y \
+        suckless-tools \
+        exa \
+        || { echo "ERROR: Terminal package installation failed."; return 1; }
 }
 
 install_font_packages() {
-    local packages=(fonts-recommended fonts-font-awesome fonts-terminus)
-    echo -e "${BLUE}Installing font packages (${#packages[@]} packages)...${NC}"
-    
-    if [ "$DRY_RUN" = true ]; then
-        for i in "${!packages[@]}"; do
-            show_progress $((i+1)) ${#packages[@]} "Would install ${packages[$i]}"
-            sleep 0.1
-        done
-        echo
-        return
-    fi
-    
-    sudo apt-get install -y "${packages[@]}" || { echo "ERROR: Font package installation failed."; return 1; }
+    echo "Installing font packages..."
+    sudo apt-get install -y \
+        fonts-recommended \
+        fonts-font-awesome \
+        fonts-terminus \
+        || { echo "ERROR: Font package installation failed."; return 1; }
 }
 
 install_packages() {
@@ -400,32 +336,23 @@ install_packages() {
         return
     fi
     
-    echo -e "\n${CYAN}📦 PACKAGE INSTALLATION${NC}"
-    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    if [ "$DRY_RUN" = true ]; then
+        echo "[DRY RUN] Would install packages in groups: core, ui, file manager, audio, utilities, terminal, fonts"
+        return
+    fi
+    
+    echo "Installing required packages..."
     
     # Install each group, but continue if one fails
-    log_step 1 7 "Core window manager packages"
     install_core_packages || echo "Warning: Some core packages failed to install"
-    
-    log_step 2 7 "UI components"
     install_ui_packages || echo "Warning: Some UI packages failed to install"
-    
-    log_step 3 7 "File management packages"
     install_file_manager_packages || echo "Warning: Some file manager packages failed to install"
-    
-    log_step 4 7 "Audio packages"
     install_audio_packages || echo "Warning: Some audio packages failed to install"
-    
-    log_step 5 7 "Utility packages"
     install_utility_packages || echo "Warning: Some utility packages failed to install"
-    
-    log_step 6 7 "Terminal packages"
     install_terminal_packages || echo "Warning: Some terminal packages failed to install"
-    
-    log_step 7 7 "Font packages"
     install_font_packages || echo "Warning: Some font packages failed to install"
     
-    echo -e "\n${GREEN}✓ Package installation completed${NC}"
+    echo "Package installation completed."
   } 
  
 install_reqs() {
@@ -539,26 +466,11 @@ setup_dwm_config() {
     done
 
     if [ "$ONLY_CONFIG" = false ]; then
-        echo -e "\n${CYAN}🔨 COMPILING SUCKLESS TOOLS${NC}"
-        echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-        
-        local components=(dwm slstatus st)
-        for i in "${!components[@]}"; do
-            local component="${components[$i]}"
-            log_step $((i+1)) ${#components[@]} "Compiling and installing $component"
-            
+        for component in dwm slstatus st; do
             cd "$CONFIG_DIR/$component" || die "Failed to enter $component directory."
-            
-            if [ "$DRY_RUN" = true ]; then
-                echo -e "  ${YELLOW}Would compile and install $component${NC}"
-            else
-                make > /dev/null 2>&1 &
-                spinner $! "  Compiling $component"
-                sudo make clean install > /dev/null 2>&1 || die "Failed to install $component."
-                echo -e "  ${GREEN}✓ $component installed successfully${NC}"
-            fi
+            make
+            sudo make clean install || die "Failed to install $component."
         done
-        echo -e "\n${GREEN}✓ All suckless tools compiled and installed${NC}"
     else
         echo "Skipping compilation and installation of dwm, slstatus, and st (--only-config mode)"
     fi
