@@ -2,10 +2,19 @@
 
 ![Made for Debian](https://img.shields.io/badge/Made%20for-Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
 
-A minimal but powerful DWM setup script for Debian-based systems.  
-Includes custom patches, layout enhancements, and smart keybindings — ready to roll out of the box.
+A minimal suckless DWM setup for Debian-based systems.  
+Following the suckless philosophy with carefully selected patches — simple, efficient, and hackable.
 
 > Part of the [JustAGuy Linux](https://github.com/drewgrif) window manager collection.
+
+## 📜 Suckless Philosophy
+
+This setup adheres to the [suckless philosophy](https://suckless.org/philosophy/):
+- **Simplicity** - Minimal code, maximum functionality
+- **Clarity** - Configuration through clean C header files
+- **Hackability** - Easy to understand, modify, and extend
+
+All configuration is done by editing `config.h` files and recompiling — no bloated config systems.
 
 ![2025-03-27_03-24](https://github.com/user-attachments/assets/e3f8481a-8eb4-420c-bf84-77218c29a679)
 
@@ -23,18 +32,15 @@ chmod +x install.sh
 
 ### Installation Options
 
-The installer now supports various options for different use cases:
+The installer follows the suckless principle of simplicity:
 
 ```bash
 ./install.sh [OPTIONS]
 
 Options:
-  --only-config       Only copy config files (perfect for non-Debian distros)
-  --skip-packages     Skip apt package installation
-  --skip-themes       Skip theme, icon, and font installations
-  --skip-butterscripts Skip all external script installations
-  --dry-run          Show what would be done without making changes
-  --help             Show usage information
+  --only-config      Only copy config files (perfect for non-Debian distros)
+  --export-packages  Export package lists for different distros and exit
+  --help            Show usage information
 ```
 
 ### Distribution-Agnostic Installation
@@ -44,89 +50,108 @@ Options:
 
 **IMPORTANT:** These instructions are provided as-is for advanced users. Non-Debian distributions are **NOT officially supported**. Package names and availability may vary. Use at your own risk.
 
-**Arch Linux:**
+**Quick Package Export:**
 ```bash
-# Install dependencies (package names may differ)
-sudo pacman -S base-devel xorg-server xorg-xinit sxhkd rofi dunst picom \
-  thunar xorg-xbacklight pamixer pavucontrol feh flameshot firefox \
-  network-manager-applet xfce4-power-manager ttf-font-awesome
-
-# Copy configuration files
-./install.sh --only-config
-
-# Compile and install dwm, slstatus, st manually
-cd ~/.config/suckless/dwm && sudo make clean install
-cd ~/.config/suckless/slstatus && sudo make clean install
-cd ~/.config/suckless/st && sudo make clean install
+# Export package lists for all supported distros
+./install.sh --export-packages
 ```
 
-**Fedora:**
-```bash
-# Install dependencies (package names may differ)
-sudo dnf groupinstall "Development Tools" "X Software Development"
-sudo dnf install sxhkd rofi dunst picom thunar xbacklight pamixer \
-  pavucontrol feh flameshot firefox network-manager-applet \
-  xfce4-power-manager fontawesome-fonts
+This will display properly formatted package lists for:
+- Debian/Ubuntu (apt)
+- Arch Linux (pacman) 
+- Fedora (dnf)
 
-# Copy configuration files
-./install.sh --only-config
+**Manual Installation Process:**
+1. Run `./install.sh --export-packages` to see package equivalents
+2. Install the packages using your distro's package manager
+3. Run `./install.sh --only-config` to copy configuration files
+4. Compile and install suckless tools manually:
+   ```bash
+   cd ~/.config/suckless/dwm && sudo make clean install
+   cd ~/.config/suckless/slstatus && sudo make clean install
+   cd ~/.config/suckless/st && sudo make clean install
+   ```
 
-# Compile and install manually
-cd ~/.config/suckless/dwm && sudo make clean install
-cd ~/.config/suckless/slstatus && sudo make clean install
-cd ~/.config/suckless/st && sudo make clean install
-```
-
-**Note:** DWM requires compilation from source. The `--only-config` option copies the source files but does not compile them on non-Debian systems.
+**Note:** Some packages may have different names or may not be available in all distributions. You may need to find equivalents or install from source.
 
 </details>
 
 ### Advanced Usage Examples
 
 ```bash
-# Preview what will be installed
-./install.sh --dry-run
+# Export package lists for manual installation
+./install.sh --export-packages
 
-# Update only configuration files
+# Update only configuration files (no packages)
 ./install.sh --only-config
 
-# Skip package installation if already installed
-./install.sh --skip-packages
-
-# Install without themes and fonts
-./install.sh --skip-themes
+# Standard installation with optional tools prompt
+./install.sh
 ```
 
 **Note:** The script can be run from any location - it automatically detects its directory.
+
+### What Gets Installed
+
+The installer follows the suckless approach - only what's necessary:
+
+1. **System Update** - Updates package lists and upgrades existing packages
+2. **Core Packages** - Essential X11, build tools, and suckless dependencies
+3. **UI Components** - Window manager utilities (rofi, dunst, etc.)
+4. **System Tools** - File manager, audio controls, power management
+5. **Suckless Builds** - Compiles and installs dwm, slstatus, and st
+6. **External Tools** - Via butterscripts:
+   - FT-Labs picom (compositor)
+   - WezTerm (terminal emulator)
+   - Nerd Fonts collection
+   - Orchis theme & Colloid icons
+   - LightDM display manager
+   - Bashrc enhancements
+7. **Optional Tools** - Additional browsers, editors, and utilities (prompted)
 
 ---
 
 ## 📦 What It Installs
 
+### Suckless Tools & Core Components
 | Component           | Purpose                          |
 |---------------------|----------------------------------|
 | `dwm`               | Tiling window manager (patched)  |
 | `sxhkd`             | Keybinding daemon                |
 | `slstatus`          | Status bar for DWM               |
-| `thunar`            | File Manager (+plugins)          |
-| `picom` `(FT-Labs)` | Compositor with transparency     |
-| `dunst`             | Lightweight notifications        |
-| `rofi`              | App launcher + keybind viewer    |
-| `dmenu`             | Minimal app launcher alternative |
-| `wezterm`           | Main terminal emulator           |
 | `st`                | Minimally patched for scratchpad |
-| `firefox-esr`       | Default web browser              |
-| `fastfetch`         | System info for screenshots      |
-| `nala`              | Better apt frontend              |
-| `pipewire`          | Audio handling                   |
-| `flameshot`         | Screenshot tools                 |
-| `micro`             | Terminal text editor             |
-| `redshift`          | Night light                      |
+| `xorg` & tools      | Display server and utilities     |
+| `build-essential`   | Compilation tools                |
+
+### UI & System Tools
+| Component           | Purpose                          |
+|---------------------|----------------------------------|
+| `rofi`              | App launcher + keybind viewer    |
+| `dunst`             | Lightweight notifications        |
+| `feh`               | Wallpaper setter                 |
+| `lxappearance`      | GTK theme manager                |
+| `network-manager`   | Network management applet        |
+| `thunar`            | File Manager (+plugins)          |
+| `pavucontrol`       | Audio control GUI                |
+| `xfce4-power-manager`| Power management                |
+| `flameshot`         | Screenshot tool                  |
 | `qimgv`             | Lightweight image viewer         |
-| `fzf`, etc.         | Utilities & enhancements         |
+| `firefox-esr`       | Default web browser              |
+| `nala`              | Better apt frontend              |
+
+### External Tools (via butterscripts)
+| Component           | Purpose                          |
+|---------------------|----------------------------------|
+| `picom` `(FT-Labs)` | Compositor with transparency     |
+| `wezterm`           | Main terminal emulator           |
+| Nerd Fonts          | Icon-enabled fonts               |
+| Orchis & Colloid    | GTK theme and icons              |
+| LightDM             | Display manager                  |
+
+### Optional Tools (prompted during install)
+Additional browsers, editors, and utilities available through the optional tools script.
 
 
-> 📄 _Need help with Geany? See the full guide at [justaguylinux.com/documentation/software/geany](https://justaguylinux.com/documentation/software/geany)_
 ---
 
 ## 🎨 Appearance & Theming
