@@ -326,7 +326,11 @@ if [ "$ONLY_CONFIG" = false ]; then
         chmod +x "$TEMP_DIR/optional_tools.sh"
         msg "Running optional tools installer..."
         # Run in current terminal session to preserve interactivity
-        bash "$TEMP_DIR/optional_tools.sh"
+        if bash "$TEMP_DIR/optional_tools.sh"; then
+            msg "Optional tools completed successfully"
+        else
+            msg "Optional tools exited (this is normal if cancelled by user)"
+        fi
     fi
 else
     msg "Skipping external tool installation (--only-config mode)"
