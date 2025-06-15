@@ -223,8 +223,20 @@ else
     msg "Skipping package installation (--only-config mode)"
 fi
 
-# Backup existing config
-[ -d "$CONFIG_DIR" ] && mv "$CONFIG_DIR" "$CONFIG_DIR.bak.$(date +%s)"
+# Handle existing config
+if [ -d "$CONFIG_DIR" ]; then
+    read -p "Found existing suckless config. Backup? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        mv "$CONFIG_DIR" "$CONFIG_DIR.bak.$(date +%s)"
+        msg "Backed up existing config"
+    else
+        read -p "Overwrite without backup? (y/n) " -n 1 -r
+        echo
+        [[ $REPLY =~ ^[Yy]$ ]] || die "Installation cancelled"
+        rm -rf "$CONFIG_DIR"
+    fi
+fi
 
 # Copy configs
 msg "Setting up configuration..."
@@ -315,4 +327,4 @@ fi
 # Done
 echo -e "\n${GREEN}Installation complete!${NC}"
 echo "1. Log out and select 'dwm' from your display manager"
-echo "2. Press Super+Shift+? for keybindings"
+echo "2. Press Super+H for keybindings"
