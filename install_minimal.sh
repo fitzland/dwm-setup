@@ -293,8 +293,13 @@ if [ "$ONLY_CONFIG" = false ]; then
     msg "Installing display manager..."
     get_script "system/install_lightdm.sh"
 
-    msg "Configuring bashrc..."
-    get_script "system/add_bashrc.sh"
+    # Bashrc configuration
+    read -p "Replace your .bashrc with justaguylinux .bashrc? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        msg "Configuring bashrc..."
+        get_script "system/add_bashrc.sh"
+    fi
 
     # Optional tools
     read -p "Install optional tools (browsers, editors, etc)? (y/n) " -n 1 -r
