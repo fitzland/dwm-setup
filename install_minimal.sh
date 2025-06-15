@@ -225,12 +225,14 @@ fi
 
 # Handle existing config
 if [ -d "$CONFIG_DIR" ]; then
+    clear
     read -p "Found existing suckless config. Backup? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         mv "$CONFIG_DIR" "$CONFIG_DIR.bak.$(date +%s)"
         msg "Backed up existing config"
     else
+        clear
         read -p "Overwrite without backup? (y/n) " -n 1 -r
         echo
         [[ $REPLY =~ ^[Yy]$ ]] || die "Installation cancelled"
@@ -310,6 +312,7 @@ if [ "$ONLY_CONFIG" = false ]; then
     bash "$TEMP_DIR/install_lightdm.sh"
 
     # Bashrc configuration
+    clear
     read -p "Replace your .bashrc with justaguylinux .bashrc? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -318,6 +321,7 @@ if [ "$ONLY_CONFIG" = false ]; then
     fi
 
     # Optional tools
+    clear
     read -p "Install optional tools (browsers, editors, etc)? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
