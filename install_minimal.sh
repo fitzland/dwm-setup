@@ -302,8 +302,12 @@ if [ "$ONLY_CONFIG" = false ]; then
     msg "Installing themes..."
     get_script "theming/install_theme.sh"
 
-    msg "Installing display manager..."
-    get_script "system/install_lightdm.sh"
+    msg "Downloading display manager installer..."
+    wget -O "$TEMP_DIR/install_lightdm.sh" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/system/install_lightdm.sh"
+    chmod +x "$TEMP_DIR/install_lightdm.sh"
+    msg "Running display manager installer..."
+    # Run in current terminal session to preserve interactivity
+    bash "$TEMP_DIR/install_lightdm.sh"
 
     # Bashrc configuration
     read -p "Replace your .bashrc with justaguylinux .bashrc? (y/n) " -n 1 -r
@@ -317,8 +321,12 @@ if [ "$ONLY_CONFIG" = false ]; then
     read -p "Install optional tools (browsers, editors, etc)? (y/n) " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        msg "Installing optional tools..."
-        get_script "setup/optional_tools.sh"
+        msg "Downloading optional tools installer..."
+        wget -O "$TEMP_DIR/optional_tools.sh" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/setup/optional_tools.sh"
+        chmod +x "$TEMP_DIR/optional_tools.sh"
+        msg "Running optional tools installer..."
+        # Run in current terminal session to preserve interactivity
+        bash "$TEMP_DIR/optional_tools.sh"
     fi
 else
     msg "Skipping external tool installation (--only-config mode)"
