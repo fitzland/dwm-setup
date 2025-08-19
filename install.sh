@@ -156,8 +156,8 @@ fi
 # Package groups for better organization
 PACKAGES_CORE=(
     xorg xorg-dev xbacklight xbindkeys xvkbd xinput
-    build-essential sxhkd xdotool
-    libnotify-bin libnotify-dev
+    build-essential sxhkd xdotool dbus-x11
+    libnotify-bin libnotify-dev libusb-0.1-4
 )
 
 PACKAGES_UI=(
@@ -175,7 +175,7 @@ PACKAGES_AUDIO=(
 
 PACKAGES_UTILITIES=(
     avahi-daemon acpi acpid xfce4-power-manager
-    flameshot qimgv nala xdg-user-dirs-gtk
+    flameshot qimgv xdg-user-dirs-gtk
 )
 
 PACKAGES_TERMINAL=(
