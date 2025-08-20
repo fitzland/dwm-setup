@@ -21,6 +21,10 @@ super + h
 # Reload sxhkd (Hotkey Daemon)
 super + Escape
 	pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
+    
+# Paste to note (bashrc note)
+super + shift + v
+    bash -ic 'note clip && notify-send "📋 Clipboard saved to notes"'
 
 # DWM Layout Menu	
 super + shift + l
