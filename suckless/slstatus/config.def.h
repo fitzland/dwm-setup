@@ -65,15 +65,9 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-/* { kernel_release, "^c#d791a8^  Debian %s ", NULL }, */
-/* { disk_perc, "^c#d791a8^  Disk: ^c#FFFFFF^%s%%", "/", NULL }, */
-/*  { keyboard_indicators, "^c#d791a8^ Caps: ^c#FFFFFF^%s", "caps", NULL }, */
-/*   { keyboard_indicators, "^c#d791a8^ Num: ^c#FFFFFF^%s", "num", NULL }, */
-/* { run_command, "^c#d791a8^  %s", "~/scripts/check_updates.sh" }, */
- /* { run_command, "^c#d791a8^  Updates: ^c#FFFFFF^%s",  "aptitude search '~U' | wc -l" }, */
-	{ cpu_perc, "^c#d791a8^  CPU: ^c#FFFFFF^%s%%", 	NULL },
-	{ ram_perc, "^c#d791a8^  RAM: ^c#FFFFFF^%s%%",	 NULL },
-	{ datetime, "^c#d791a8^  %s", 		"%a %b %-d" },
-/*	{ datetime, "^c#FFFFFF^ %s", 		"%H:%M  " }, */
- 	{ datetime, "^c#FFFFFF^ %s", 		"%l:%M %p  " },	
+	{ cpu_perc, "^c#ff6b6b^ 󰻠 ^c#FFFFFF^%s%% ", NULL },
+	{ ram_perc, "^c#4fc3f7^ 󰍛 ^c#FFFFFF^%s%% ", NULL },
+	{ disk_perc, "^c#ffc107^ 󰋊 ^c#FFFFFF^%s%% ", "/" },
+	{ datetime, "^c#80bfff^ 󰸗 ^c#FFFFFF^%s ", "%a %b %-d" },
+	{ datetime, "^c#9c27b0^ 󰥔 ^c#FFFFFF^%s  ", "%-l:%M %p" },
 	};
