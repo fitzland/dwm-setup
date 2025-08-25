@@ -1,0 +1,13 @@
+
+# Ignore build objects
+*.o
+
+# Ignore executable
+st
+
+# Protect files with no extension
+!FAQ
+!LEGACY
+!LICENSE
+!Makefile
+!TODO

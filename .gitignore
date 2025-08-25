@@ -1,0 +1,17 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+### Above combination will ignore all files without extension (From https://stackoverflow.com/a/25592735)  ###
+
+# Ignore files/fodlers with only an extension
+.*
+
+# Keep Specific Files
+!.gitignore
+!LICENSE

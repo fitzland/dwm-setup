@@ -1,0 +1,11 @@
+
+# Ignore build objects
+*.o
+
+# Ignore executable
+slstatus
+
+# Protect specific files
+!LICENSE
+!Makefile
+!README
