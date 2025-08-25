@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2025-08-25]
+
+### Changed
+- Updated README.md documentation
+- Cleaned up repository by removing config.h (using config.def.h instead)
+- Improved .gitignore files to protect special files without extensions
+- Removed compiled object files and executables from repository
+
+### Fixed
+- File protection for special files in .gitignore (PR #3 by [@JeffofBread](https://github.com/JeffofBread))
+
+## [2025-08-20]
+
+### Changed
+- Updated install.sh to remove bashrc option
+- Refactored installer for better functionality
+
+## [2025-07-02]
+
+### Changed
+- Removed wallpaper from repository but added to script functionality
+- Updated install.sh
+
+### Removed
+- install.sh.orig file (cleanup)
+
+## [2025-06-15]
+
+### Added
+- install_minimal.sh script for minimal installation option
+
+### Changed
+- Major refactoring to make setup more suckless-compliant
+- Updated README.md documentation
+- Multiple improvements to install_minimal.sh
+
+## [2025-05-31]
+
+### Changed
+- Multiple updates and improvements to install.sh
+
+## [2025-05-23]
+
+### Changed
+- Updated install.sh
+- Made dunstrc configuration more streamlined
+
 ## [2025-05-22]
 
 ### Added
