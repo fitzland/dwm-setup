@@ -16,7 +16,7 @@ This setup adheres to the [suckless philosophy](https://suckless.org/philosophy/
 
 All configuration is done by editing `config.h` files and recompiling — no bloated config systems.
 
-![2025-03-27_03-24](https://github.com/user-attachments/assets/e3f8481a-8eb4-420c-bf84-77218c29a679)
+<img width="3440" height="1440" alt="2025-08-23_20-01" src="https://github.com/user-attachments/assets/3d761a2d-c719-4c53-8e87-3837aa5c38ac" />
 
 ---
 
