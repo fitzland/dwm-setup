@@ -14,7 +14,7 @@ This setup adheres to the [suckless philosophy](https://suckless.org/philosophy/
 - **Clarity** - Configuration through clean C header files
 - **Hackability** - Easy to understand, modify, and extend
 
-All configuration is done by editing `config.h` files and recompiling — no bloated config systems.
+Configuration follows the suckless way: edit `config.def.h`, remove `config.h`, then recompile — no bloated config systems.
 
 <img width="3440" height="1440" alt="2025-08-23_20-01" src="https://github.com/user-attachments/assets/3d761a2d-c719-4c53-8e87-3837aa5c38ac" />
 
@@ -119,7 +119,7 @@ The installer follows the suckless approach - only what's necessary:
 | `dwm`               | Tiling window manager (patched)  |
 | `sxhkd`             | Keybinding daemon                |
 | `slstatus`          | Status bar for DWM               |
-| `st`                | Minimally patched for scratchpad |
+| `st`                | Patched for scratchpad with transparency, scrollback, and clipboard support |
 | `xorg` & tools      | Display server and utilities     |
 | `build-essential`   | Compilation tools                |
 
@@ -165,10 +165,12 @@ Additional browsers, editors, and utilities available through the optional tools
 
 ## 🔑 Keybindings Overview
 
-Keybindings are stored in:
+Keybindings are split between two systems:
 
-- `~/.config/suckless/dwm/config.def.h` for **DWM keybindings**
-- `~/.config/suckless/sxhkd/sxhkdrc` for **sxhkd keybindings**
+- `~/.config/suckless/dwm/config.def.h` for **DWM-specific keybindings** (window management, layout control, tag switching)
+- `~/.config/suckless/sxhkd/sxhkdrc` for **application launchers and system commands** (programs, scripts, media keys)
+
+This separation keeps DWM's core window management bindings in the source while allowing hot-reloadable keybinds for launching applications via sxhkd.
 
 Launch the keybind cheatsheet anytime with:
 
@@ -227,11 +229,11 @@ These are the layouts included in this build, in the exact order from `config.de
 ```
 ~/.config/suckless/
 ├── dwm/
-│   ├── config.h             # Main DWM configuration
+│   ├── config.def.h         # Main DWM configuration (edit this)
 ├── st/
-│   └── config.h             # Barely Patched st terminal configuration
+│   └── config.def.h         # ST terminal configuration (scratchpad terminal)
 ├── slstatus/
-│   └── config.h             # Status bar configuration
+│   └── config.def.h         # Status bar configuration
 ├── sxhkd/
 │   └── sxhkdrc              # Keybindings for sxhkd
 ├── dunst/
