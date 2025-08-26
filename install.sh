@@ -252,13 +252,14 @@ mkdir -p "$CONFIG_DIR"
 cp -r "$SCRIPT_DIR"/suckless/* "$CONFIG_DIR"/ || die "Failed to copy configs"
 
 # Build suckless tools
-if [ "$ONLY_CONFIG" = false ]; then
-    msg "Building suckless tools..."
-    for tool in dwm slstatus st; do
-        cd "$CONFIG_DIR/$tool" || die "Cannot find $tool"
-        make && sudo make clean install || die "Failed to build $tool"
-    done
+msg "Building suckless tools..."
+for tool in dwm slstatus st; do
+    cd "$CONFIG_DIR/$tool" || die "Cannot find $tool"
+    make && sudo make clean install || die "Failed to build $tool"
+done
 
+# Create desktop entries (skip if --only-config since they likely exist)
+if [ "$ONLY_CONFIG" = false ]; then
     # Create desktop entry for DWM
     sudo mkdir -p /usr/share/xsessions
     cat <<EOF | sudo tee /usr/share/xsessions/dwm.desktop >/dev/null
@@ -282,7 +283,7 @@ Type=Application
 Categories=System;TerminalEmulator;
 EOF
 else
-    msg "Skipping compilation and desktop entry (--only-config mode)"
+    msg "Skipping desktop entry creation (--only-config mode)"
 fi
 
 # Setup directories
