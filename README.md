@@ -440,6 +440,14 @@ Enhances workflow — instead of moving a window to another tag and then manuall
 
 </details>
 
+---
+
+## ☕ Support
+
+If this setup has been helpful, consider buying me a coffee:
+
+[![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/justaguylinux)
+
 ## 📺 Watch on YouTube
 
 Want to see how it looks and works?  
