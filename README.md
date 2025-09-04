@@ -16,8 +16,6 @@ This setup adheres to the [suckless philosophy](https://suckless.org/philosophy/
 
 Configuration follows the suckless way: edit `config.def.h`, remove `config.h`, then recompile — no bloated config systems.
 
-<img width="3440" height="1440" alt="2025-08-23_20-01" src="https://github.com/user-attachments/assets/3d761a2d-c719-4c53-8e87-3837aa5c38ac" />
-
 ---
 
 ## 🚀 Installation
