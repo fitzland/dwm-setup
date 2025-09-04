@@ -16,6 +16,8 @@ This setup adheres to the [suckless philosophy](https://suckless.org/philosophy/
 
 Configuration follows the suckless way: edit `config.def.h`, remove `config.h`, then recompile — no bloated config systems.
 
+![DWM Setup Screenshot](screenshots/dwm-screenshot.png)
+
 ---
 
 ## 🚀 Installation
