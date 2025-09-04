@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # JustAGuy Linux - DWM Setup
-# https://github.com/drewgrif/dwm-setup
+# https://codeberg.org/justaguylinux/dwm-setup
 
 set -e
 
@@ -292,7 +292,7 @@ mkdir -p ~/Screenshots
 
 # Butterscript helper
 get_script() {
-    wget -qO- "https://raw.githubusercontent.com/drewgrif/butterscripts/main/$1" | bash
+    wget -qO- "https://codeberg.org/justaguylinux/butterscripts/raw/branch/main/$1" | bash
 }
 
 # Install essential components
@@ -313,13 +313,13 @@ if [ "$ONLY_CONFIG" = false ]; then
     
     msg "Downloading wallpaper directory..."
     cd "$CONFIG_DIR"
-    git clone --depth 1 --filter=blob:none --sparse https://github.com/drewgrif/butterscripts.git "$TEMP_DIR/butterscripts-wallpaper" || die "Failed to clone butterscripts"
+    git clone --depth 1 --filter=blob:none --sparse https://codeberg.org/justaguylinux/butterscripts.git "$TEMP_DIR/butterscripts-wallpaper" || die "Failed to clone butterscripts"
     cd "$TEMP_DIR/butterscripts-wallpaper"
     git sparse-checkout set wallpaper || die "Failed to set sparse-checkout"
     cp -r wallpaper "$CONFIG_DIR"/ || die "Failed to copy wallpaper directory"
 
     msg "Downloading display manager installer..."
-    wget -O "$TEMP_DIR/install_lightdm.sh" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/system/install_lightdm.sh"
+    wget -O "$TEMP_DIR/install_lightdm.sh" "https://codeberg.org/justaguylinux/butterscripts/raw/branch/main/system/install_lightdm.sh"
     chmod +x "$TEMP_DIR/install_lightdm.sh"
     msg "Running display manager installer..."
     # Run in current terminal session to preserve interactivity
@@ -331,7 +331,7 @@ if [ "$ONLY_CONFIG" = false ]; then
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         msg "Downloading optional tools installer..."
-        wget -O "$TEMP_DIR/optional_tools.sh" "https://raw.githubusercontent.com/drewgrif/butterscripts/main/setup/optional_tools.sh"
+        wget -O "$TEMP_DIR/optional_tools.sh" "https://codeberg.org/justaguylinux/butterscripts/raw/branch/main/setup/optional_tools.sh"
         chmod +x "$TEMP_DIR/optional_tools.sh"
         msg "Running optional tools installer..."
         # Run in current terminal session to preserve interactivity

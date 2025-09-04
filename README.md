@@ -5,7 +5,7 @@
 A minimal suckless DWM setup for Debian-based systems.  
 Following the suckless philosophy with carefully selected patches — simple, efficient, and hackable.
 
-> Part of the [JustAGuy Linux](https://github.com/drewgrif) window manager collection.
+> Part of the [JustAGuy Linux](https://codeberg.org/justaguylinux) window manager collection.
 
 ## 📜 Suckless Philosophy
 
@@ -22,7 +22,7 @@ Configuration follows the suckless way: edit `config.def.h`, remove `config.h`, 
 
 ### Quick Install
 ```bash
-git clone https://github.com/drewgrif/dwm-setup.git
+git clone https://codeberg.org/justaguylinux/dwm-setup.git
 cd dwm-setup
 chmod +x install.sh
 ./install.sh
