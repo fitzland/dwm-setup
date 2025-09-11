@@ -187,6 +187,16 @@ Launch the keybind cheatsheet anytime with:
 | `Super + S`          | Toggle window sticky            |
 | `Super + Shift + R`  | Restart DWM                     |
 | `Super + Shift + L`  | Launch layout selector (rofi)   |
+| `Super + Shift + F`  | Toggle fullscreen mode          |
+| `Super + Shift + T`  | Toggle scratchpad terminal      |
+| `Super + Shift + A`  | Toggle audio mixer (pulsemixer) |
+| `Super + F`          | Launch file manager (Thunar)    |
+| `Super + B`          | Launch Firefox browser          |
+| `Super + E`          | Launch text editor (Geany)      |
+| `Super + M`          | Toggle audio mute               |
+| `Super + Insert`     | Increase volume                 |
+| `Super + Delete`     | Decrease volume                 |
+| `Super + Shift + Space` | Toggle floating/tiled        |
 | `Super + 1–=`        | Switch to tag                   |
 | `Super + Shift + 1–=`| Move window to tag              |
 
@@ -315,6 +325,8 @@ Adds keybindings to **quickly switch to the next or previous tag**.
 **Why it's useful:**  
 Great for workflows where you spread work across multiple tags. Makes it easier to quickly switch to adjacent tags without a numeric jump.
 
+**Usage:** Press `Control + Shift + Left/Right` to switch to adjacent tags, or `Alt + Control + Left/Right` to move windows to adjacent tags.
+
 ---
 
 ### 5. `dwm-focusedontop-6.6.diff`
@@ -382,6 +394,8 @@ Adds a **restart signal handler** so you can restart DWM without logging out.
 **Why it's useful:**  
 Allows easy config reloads and minor changes without logging out, pairing well with `preserveonrestart`.
 
+**Usage:** Press `Super + Shift + R` to restart DWM.
+
 ---
 
 ### 12. `dwm-scratchpad-20240321-061e9fe.diff`
@@ -390,6 +404,8 @@ Implements **scratchpad**, allowing you to spawn hidden windows (like a drop-dow
 
 **Why it's useful:**  
 A classic feature from workflows like i3 and bspwm. Scratchpad is great for terminals, music players, or quick note apps.
+
+**Usage:** Press `Super + Shift + T` to toggle the scratchpad terminal, or `Super + Shift + A` to toggle the audio mixer scratchpad.
 
 ---
 
@@ -411,6 +427,8 @@ Adds a "sticky" flag to windows, making them visible on all tags.
 **Why it's useful:**  
 Perfect for windows you want to always have accessible, like music players, system monitors, or communication apps. Sticky windows follow you across all workspaces.
 
+**Usage:** Press `Super + S` to toggle sticky mode for the focused window.
+
 ---
 
 ### 15. `dwm-togglefloatingcenter-20210806-138b405f.diff`
@@ -419,6 +437,8 @@ Toggles a window between floating and tiled **while centering it if floating**.
 
 **Why it's useful:**  
 Combines two useful actions into one — not only toggling float, but also ensuring floating windows are neatly centered.
+
+**Usage:** Press `Super + Shift + Space` to toggle floating/tiled mode for the focused window.
 
 ---
 
