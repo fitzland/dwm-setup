@@ -1,8 +1,9 @@
 # 🧱 dwm-setup
 
 ![Made for Debian](https://img.shields.io/badge/Made%20for-Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
+![DWM Version](https://img.shields.io/badge/DWM-6.6-005577?style=for-the-badge&logo=c&logoColor=white)
 
-A minimal suckless DWM setup for Debian-based systems.  
+A minimal suckless DWM 6.6 setup for Debian-based systems.  
 Following the suckless philosophy with carefully selected patches — simple, efficient, and hackable.
 
 > Part of the [JustAGuy Linux](https://codeberg.org/justaguylinux) window manager collection.
@@ -137,7 +138,6 @@ The installer follows the suckless approach - only what's necessary:
 | `flameshot`         | Screenshot tool                  |
 | `qimgv`             | Lightweight image viewer         |
 | `firefox-esr`       | Default web browser              |
-| `nala`              | Better apt frontend              |
 
 ### External Tools (via butterscripts)
 | Component           | Purpose                          |
@@ -184,8 +184,9 @@ Launch the keybind cheatsheet anytime with:
 | `Super + Space`      | Launch rofi                     |
 | `Super + H`          | Open keybind help via Rofi      |
 | `Super + Q`          | Close focused window            |
+| `Super + S`          | Toggle window sticky            |
 | `Super + Shift + R`  | Restart DWM                     |
-| `Super + Shift + L`  | Cycle through layouts           |
+| `Super + Shift + L`  | Launch layout selector (rofi)   |
 | `Super + 1–=`        | Switch to tag                   |
 | `Super + Shift + 1–=`| Move window to tag              |
 
@@ -193,32 +194,31 @@ Launch the keybind cheatsheet anytime with:
 
 ## 🧱 Layouts
 
-Cycle layouts using:
+Select layouts using:
 
 ```text
 Super + Shift + L
 ```
+
+This launches a rofi menu where you can select from available layouts.
 
 <details>
 <summary>Click to expand layout descriptions</summary>
 
 These are the layouts included in this build, in the exact order from `config.def.h`:
 
-- **`dwindle`** (`[\]`) — Fibonacci-style dwindle layout (default)
-- **`tile`** (`[]=`) — Classic master-stack
-- **`columnlayout`** (`[C]`) — Vertical column view
-- **`centeredmaster`** (`|M|`) — Centered master, tiled sides
-- **Floating** (`><>`) — Free window placement
-- **`bstack`** (`TTT`) — Master on top, stack below
-- **`nrowgrid`** (`###`) — Grid with fixed rows
-- **`deck`** (`H[]`) — Master with tabbed stack
-- **`gaplessgrid`** (`:::`) — Even, gapless grid
-- **`spiral`** (`[@]`) — Spiral Fibonacci layout
-- **`monocle`** (`[M]`) — Fullscreen stacked windows
-- **`grid`** (`HHH`) — Even grid
-- **`bstackhoriz`** (`===`) — Horizontal bstack
-- **`centeredfloatingmaster`** (`>M>`) — Centered floating master
-- **`horizgrid`** (`---`) — Wide-monitor horizontal grid
+- **󰕴 Dwindle** — Fibonacci-style dwindle layout (default)
+- **󰙀 Tile** — Classic master-stack
+- **󰕬 Column Layout** — Vertical column view
+- **󰕯 Centered Master** — Centered master, tiled sides
+- **󰕰 Floating** — Free window placement
+- **󱒈 Bstack** — Master on top, stack below
+- **󰕭 N-Row Grid** — Grid with fixed rows
+- **󱇙 Deck** — Master with tabbed stack
+- **󰕫 Gapless Grid** — Even, gapless grid
+- **󰪷 Spiral** — Spiral Fibonacci layout
+- **󰕮 Monocle** — Fullscreen stacked windows
+- **󰝘 Grid** — Even grid
 
 </details>
 
@@ -254,25 +254,25 @@ These are the layouts included in this build, in the exact order from `config.de
 
 ## 🧩 Patches Summary
 
-| Patch                  | Category                |
-|------------------------|-------------------------|
-| alwayscenter           | Floating windows        |
-| attachbottom           | Window order            |
-| cool-autostart         | Autostart               |
-| fixborders             | Visual fix              |
-| focusadjacenttag       | Navigation              |
-| focusedontop           | Floating windows        |
-| focusonnetactive       | Compatibility           |
-| fullscreen             | Window management       |
-| movestack              | Window management       |
-| pertag                 | Layout memory           |
-| preserveonrestart      | Session persistence     |
-| restartsig             | Restart ability         |
-| scratchpads            | Workflow                |
-| status2d-systray       | Bar features            |
-| togglefloatingcenter   | Floating windows        |
-| vanitygaps             | Visual spacing          |
-| windowfollow           | Navigation              |
+| Patch                  | Category                | Version |
+|------------------------|-------------------------|---------|  
+| alwayscenter           | Floating windows        | 6.2     |
+| attachbottom           | Window order            | 6.3     |
+| cool_autostart         | Autostart               | 6.5     |
+| focusadjacenttag       | Navigation              | 6.3     |
+| focusedontop           | Floating windows        | 6.6     |
+| focusonnetactive       | Compatibility           | 6.2     |
+| fullscreen             | Window management       | 6.2     |
+| movestack              | Window management       | 6.2     |
+| pertag                 | Layout memory           | 6.2     |
+| preserveonrestart      | Session persistence     | 6.3     |
+| restartsig             | Restart ability         | 6.2     |
+| scratchpad             | Workflow                | 6.5     |
+| status2d-systray       | Bar features            | 6.4     |
+| sticky                 | Window management       | 6.5     |
+| togglefloatingcenter   | Floating windows        | 6.2     |
+| vanitygaps             | Visual spacing          | 6.2     |
+| windowfollow           | Navigation              | 6.2     |
 
 ---
 
@@ -299,7 +299,7 @@ This can help keep your active window in focus instead of being immediately push
 
 ---
 
-### 3. `dwm-cool-autostart-20240312-9f88553.diff`
+### 3. `dwm-cool_autostart-6.5.diff`
 **What it does:**  
 Adds an **autostart mechanism** to DWM without using `.xinitrc`.
 
@@ -308,16 +308,7 @@ You can easily manage startup scripts directly in DWM’s codebase, making it mo
 
 ---
 
-### 4. `dwm-fixborders-6.2.diff`
-**What it does:**  
-Fixes a bug where **border width may be incorrect** after switching between floating and tiled layouts.
-
-**Why it's useful:**  
-Prevents graphical glitches and ensures windows always have the correct borders, especially on tiling/floating transitions.
-
----
-
-### 5. `dwm-focusadjacenttag-6.3.diff`
+### 4. `dwm-focusadjacenttag-6.3.diff`
 **What it does:**  
 Adds keybindings to **quickly switch to the next or previous tag**.
 
@@ -326,18 +317,18 @@ Great for workflows where you spread work across multiple tags. Makes it easier 
 
 ---
 
-### 6. `dwm-focusedontop-6.5.diff`
+### 5. `dwm-focusedontop-6.6.diff`
 **What it does:**  
 Forces the currently focused floating window to always be on top.
 
 **Why it's useful:**  
 Prevents floating windows from accidentally being covered by tiled windows when they lose focus.
 
-**[This is a patch created by Bakkeby for dwm-flexipatch](https://github.com/bakkeby/patches/blob/master/dwm/dwm-focusedontop-6.5.diff)**
+**[This is a patch created by Bakkeby for dwm-flexipatch](https://github.com/bakkeby/patches/blob/master/dwm/dwm-focusedontop-6.6.diff)**
 
 ---
 
-### 7. `dwm-focusonnetactive-6.2.diff`
+### 6. `dwm-focusonnetactive-6.2.diff`
 **What it does:**  
 Ensures DWM correctly focuses windows that request focus via _NET_ACTIVE_WINDOW (like some app popups).
 
@@ -346,7 +337,7 @@ Improves compatibility with external programs and scripts (e.g., notification po
 
 ---
 
-### 8. `dwm-fullscreen-6.2.diff`
+### 7. `dwm-fullscreen-6.2.diff`
 **What it does:**  
 Adds the ability for windows to be **faked fullscreen**, which is basically just a borderless, statusbar-less window that fits the entire screen.
 
@@ -357,7 +348,7 @@ Some applications (like browsers, video players, and games) expect to be able to
 
 ---
 
-### 9. `dwm-movestack-20211115-a786211.diff`
+### 8. `dwm-movestack-20211115-a786211.diff`
 **What it does:**  
 Allows you to **move windows up/down the stack**.
 
@@ -366,7 +357,7 @@ Essential for organizing windows in the master-stack layout, letting you reorder
 
 ---
 
-### 10. `dwm-pertag-20200914-61bb8b2.diff`
+### 9. `dwm-pertag-20200914-61bb8b2.diff`
 **What it does:**  
 Each tag remembers its own **layout, master count, and gaps settings**.
 
@@ -375,7 +366,7 @@ This is one of the most **essential DWM patches** if you use multiple tags. It a
 
 ---
 
-### 11. `dwm-preserveonrestart-6.3.diff`
+### 10. `dwm-preserveonrestart-6.3.diff`
 **What it does:**  
 Preserves window positions when restarting DWM.
 
@@ -384,7 +375,7 @@ Critical if you like to restart DWM to reload config changes, keeping windows in
 
 ---
 
-### 12. `dwm-restartsig-20180523-6.2.diff`
+### 11. `dwm-restartsig-20180523-6.2.diff`
 **What it does:**  
 Adds a **restart signal handler** so you can restart DWM without logging out.
 
@@ -393,16 +384,16 @@ Allows easy config reloads and minor changes without logging out, pairing well w
 
 ---
 
-### 13. `dwm-scratchpads-20200414-728d397b.diff`
+### 12. `dwm-scratchpad-20240321-061e9fe.diff`
 **What it does:**  
-Implements **scratchpads**, allowing you to spawn hidden windows (like a drop-down terminal).
+Implements **scratchpad**, allowing you to spawn hidden windows (like a drop-down terminal).
 
 **Why it's useful:**  
-A classic feature from workflows like i3 and bspwm. Scratchpads are great for terminals, music players, or quick note apps.
+A classic feature from workflows like i3 and bspwm. Scratchpad is great for terminals, music players, or quick note apps.
 
 ---
 
-### 14. `dwm-status2d-systray-6.4.diff`
+### 13. `dwm-status2d-systray-6.4.diff`
 **What it does:**  
 Adds support for **color-embedded status text and a systray** in DWM’s status bar.
 
@@ -410,6 +401,15 @@ Adds support for **color-embedded status text and a systray** in DWM’s status 
 Combines two essential features:
 - Colored status text for aesthetic and information clarity.
 - Systray support for handling system tray icons (volume, network, etc.), which is not natively supported in DWM.
+
+---
+
+### 14. `dwm-sticky-6.5.diff`
+**What it does:**  
+Adds a "sticky" flag to windows, making them visible on all tags.
+
+**Why it's useful:**  
+Perfect for windows you want to always have accessible, like music players, system monitors, or communication apps. Sticky windows follow you across all workspaces.
 
 ---
 

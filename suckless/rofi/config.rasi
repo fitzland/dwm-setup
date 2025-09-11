@@ -1,5 +1,5 @@
   * {
-        bg: #161616;
+        bg: #00141d;
         background-color: @bg;
     }
 
@@ -15,7 +15,7 @@
 	    width: 45%;
 	    transparency: "real";
 	    orientation: vertical;
-	    border-color: #DBC704;
+	    border-color: #4fc3f7;
         border-radius: 10px;
     }
 
@@ -29,13 +29,14 @@
 
     element {
 	    padding: 4 12;
-	    text-color: #161616;
+	    text-color: #FFFFFF;
+        background-color: #00141d;
         border-radius: 5px;
     }
 
     element selected {
-	    text-color: #ffffff;
-	    background-color: #DBC704;
+	    text-color: #1a1a1a;
+	    background-color: #b3e5fc;
     }
 
     element-text {
@@ -51,41 +52,41 @@
     }
 
 	element.selected.active {
-		background-color: #161616;
-		text-color: #F2F4F8;
+		background-color: #00141d;
+		text-color: #FFFFFF;
 	}
  
 	element.alternate.normal {
-		background-color: #161616;
-		text-color: #F2F4F8;
+		background-color: #00141d;
+		text-color: #FFFFFF;
 	}
 
  
 	element.alternate.active {
-		background-color: #ff8f40;
-		text-color: #F2F4F8;
+		background-color: #b3e5fc;
+		text-color: #1a1a1a;
 	}
 
 	element.selected.normal {
-		background-color: #ff8f40;
-		text-color: #161616;
+		background-color: #b3e5fc;
+		text-color: #1a1a1a;
 	}
  
 
 	element.normal.active {
-		background-color: #161616;
-		text-color: #F2F4F8;
+		background-color: #00141d;
+		text-color: #FFFFFF;
 	}
  
 
 	element.normal.normal {
-		background-color: #161616;
-		text-color: #F2F4F8;
+		background-color: #00141d;
+		text-color: #FFFFFF;
 	}
  
 	element.normal.urgent {
 		background-color: #f25d78;
-		text-color: #161616;
+		text-color: #1a1a1a;
 	}
 
 	
