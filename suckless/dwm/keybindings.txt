@@ -1,20 +1,62 @@
-super + Return	Launch Terminal
-super + p	Run dmenu
-super + q	Close Window
-super + shift + r	Restart DWM
-super + shift + q	Quit DWM
-super + ctrl + b	Toggle Bar
-super + right	Focus Next Window
-super + left	Focus Previous Window
-super + shift + right	Move Window Right
-super + shift + left	Move Window Left
-super + ctrl + right	Resize Window Right
-super + ctrl + left	Resize Window Left
-ctrl + shift + right	Next Tag
-ctrl + shift + left	Previous Tag
-super + tab	Last Tag
-ctrl + alt + right	Move to Next Tag
-ctrl + alt + left	Move to Prev Tag
-super + shift + space	Toggle Floating
-super + v	Scratchpad Volume
-super + r	Scratchpad Ranger
+Super + p	Launch dmenu
+Super + Return	Launch terminal (wezterm)
+Super + Shift + t	Toggle terminal scratchpad
+Super + Shift + a	Toggle audio mixer (pulsemixer)
+Super + Control + b	Toggle status bar
+Super + Right	Focus next window in stack
+Super + Left	Focus previous window in stack
+Super + Control + Left	Decrease master area width
+Super + Control + Right	Increase master area width
+Super + Shift + Right	Move window down in stack
+Super + Shift + Left	Move window up in stack
+Control + Shift + Left	View previous tag
+Control + Shift + Right	View next tag
+Alt + Control + Left	Move window to previous tag
+Alt + Control + Right	Move window to next tag
+Super + Tab	Toggle between current and previous tag
+Super + q	Kill focused window
+Super + Shift + Space	Toggle floating mode
+Super + 0	View all tags
+Super + Shift + 0	Tag window with all tags
+Super + ,	Focus previous monitor
+Super + .	Focus next monitor
+Super + Alt + Shift + ,	Move window to previous monitor
+Super + Alt + Shift + .	Move window to next monitor
+Super + Alt + u	Increase all gaps
+Super + Alt + Shift + u	Decrease all gaps
+Super + Alt + i	Increase inner gaps
+Super + Alt + Shift + i	Decrease inner gaps
+Super + Alt + o	Increase outer gaps
+Super + Alt + Shift + o	Decrease outer gaps
+Super + Alt + 6	Increase horizontal inner gaps
+Super + Alt + Shift + 6	Decrease horizontal inner gaps
+Super + Alt + 7	Increase vertical inner gaps
+Super + Alt + Shift + 7	Decrease vertical inner gaps
+Super + Alt + 8	Increase horizontal outer gaps
+Super + Alt + Shift + 8	Decrease horizontal outer gaps
+Super + Alt + 9	Increase vertical outer gaps
+Super + Alt + Shift + 9	Decrease vertical outer gaps
+Super + Alt + 0	Toggle gaps
+Super + Alt + Shift + 0	Reset gaps to default
+Shift + Control + 1	Set dwindle layout
+Shift + Control + 2	Set tile layout
+Shift + Control + 3	Set column layout
+Shift + Control + 4	Set centered master layout
+Shift + Control + 5	Set floating layout
+Shift + Control + 6	Set bstack layout
+Shift + Control + 7	Set n-row grid layout
+Shift + Control + 8	Set deck layout
+Shift + Control + 9	Set gapless grid layout
+Shift + Control + 0	Set spiral layout
+Shift + Control + -	Set monocle layout
+Shift + Control + =	Set grid layout
+Super + 1-9,0,-,=	Switch to tag
+Super + Control + 1-9,0,-,=	Toggle tag view
+Super + Shift + 1-9,0,-,=	Move window to tag
+Super + Control + Shift + 1-9,0,-,=	Tag window with additional tag
+Super + Alt + Shift + Tab	Increase number of windows in master area
+Super + Alt + Tab	Decrease number of windows in master area
+Super + s	Toggle sticky window
+Super + Shift + f	Toggle fullscreen
+Super + Shift + q	Quit dwm
+Super + Shift + r	Restart dwm
